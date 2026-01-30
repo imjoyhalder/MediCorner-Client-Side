@@ -1,4 +1,4 @@
-import { Navbar1 } from "@/components/navbar1"
+import { Navbar1 } from "@/components/layouts/navbar1"
 import type { ReactNode } from "react"
 
 
@@ -13,7 +13,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             <Navbar1 />
 
             {/* Main Content */}
-            <main className="bg-gradient-to-br from-purple-50 via-pink-50 to-white min-h-screen rounded-xl">
+            <main>
                 {children}
             </main>
 
