@@ -1,27 +1,26 @@
-
-import { Navbar } from "@/components/layouts/navbar1"
-import type { ReactNode } from "react"
-
+import FooterSection from "@/components/layouts/footer";
+import { Navbar } from "@/components/layouts/navbar1";
+import type { ReactNode } from "react";
 
 interface PublicLayoutProps {
-    children: ReactNode
+    children: ReactNode;
 }
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
     return (
-        <div >
+        <div className="flex flex-col min-h-screen">
             {/* Navbar */}
-            <Navbar  />
+            <Navbar />
 
             {/* Main Content */}
-            <div className="bg-gradient-to-r from-green-100 to-green-50 ">
-                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <main className="flex-1 bg-gradient-to-r from-green-100 to-green-50">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     {children}
-                </main>
-            </div>
+                </div>
+            </main>
 
             {/* Footer */}
-            {/* <Footer /> */}
+            <FooterSection />
         </div>
-    )
+    );
 }

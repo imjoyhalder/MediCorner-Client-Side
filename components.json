@@ -20,6 +20,9 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@shadcnblocks": "https://shadcnblocks.com/r/{name}.json"
+    "@shadcnblocks": "https://shadcnblocks.com/r/{name}.json",
+    "@bundui": {
+      "url": "https://bundui.io/api/registry/{name}.json"
+    }
   }
 }
