@@ -730,7 +730,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { title: "Home", url: "/" },
-  { title: "Shop", url: "/shop" },
+  { title: "Medicine", url: "/medicine" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
   { title: "Health Blog", url: "/blog" },

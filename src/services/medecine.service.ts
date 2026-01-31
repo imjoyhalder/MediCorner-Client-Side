@@ -3,8 +3,8 @@ import { env } from "@/env"
 export const MedicineServices = {
     getAllMedicine: async () => {
         try {
-            const res = await fetch(`${env.API_URL}/medicine`)
-            const data = res.json()
+            const res = await fetch(`${env.BACKEND_URL}/medicine`)
+            const data = await res.json()
             if (!data) {
                 return { data: null, error: "category data fetch failed!" }
             }
