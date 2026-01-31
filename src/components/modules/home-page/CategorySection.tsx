@@ -1,52 +1,43 @@
-
-import { Card, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
-import { time } from "console"
 import Link from "next/link"
+import { CategoryServices } from "@/services/category.service"
+import { Card, CardContent, CardTitle } from "@/components/ui/card"
 
-interface Category {
+export interface Category {
     id: string
     name: string
     slug: string
 }
 
-export default async function CategorySection({ className }: { className?: string }) {
-    // Next.js 14 app dir built-in fetch with cache: 'no-store' to always get latest
-    const res = await fetch("https://medicorner-server.vercel.app/api/v1/categories", { cache: 'no-store' })
-    const data = await res.json()
-    const categories: Category[] = data?.categories || []
+export default async function CategorySection() {
+    const { data } = await CategoryServices.getAllCategories()
+    console.log(data)
 
-    console.log(data.data);
-
-    // return (
-    //     <section className={cn("py-8 px-4 md:px-16", className)}>
-    //         <h2 className="text-3xl font-bold text-primary mb-6 text-center">
-    //             Shop by Category
-    //         </h2>
-
-    //         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-    //             {categories.map((cat) => (
-    //                 <Link
-    //                     key={cat.id}
-    //                     href={`/category/${cat.id}`} // click kore oi category medicines page e jabe
-    //                     className="transition transform hover:scale-105"
-    //                 >
-    //                     <Card className="flex items-center justify-center p-4 text-center hover:shadow-lg hover:bg-primary/10">
-    //                         <CardContent>
-    //                             <span className="text-lg font-medium text-primary">
-    //                                 {cat.name}
-    //                             </span>
-    //                         </CardContent>
-    //                     </Card>
-    //                 </Link>
-    //             ))}
-    //         </div>
-    //     </section>
-    // )
     return (
-        <div className="bg-amber-400">
-            <h1 className="text-xl text-center text-green-500">Medicine Category</h1>
-            <h1>{JSON.stringify(data)}</h1>
-        </div>
+        <section className="bg-[#f8fafc] py-12">
+            <div className="max-w-7xl mx-auto px-4">
+                {/* Section Heading */}
+                <h2 className="text-3xl md:text-4xl font-bold text-[#22c55e] text-center mb-8">
+                    Medicine Categories
+                </h2>
+
+                {/* Categories Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {data?.data.map((category: Category) => (
+                        <Link key={category.id} href={`/category/${category.id}`}>
+                            <Card className="border border-gray-200 hover:shadow-lg transition-shadow hover:scale-105 cursor-pointer">
+                                <CardContent className="flex flex-col items-center justify-center p-6">
+                                    <CardTitle className="text-xl font-semibold text-[#22c55e] text-center">
+                                        {category.name}
+                                    </CardTitle>
+                                    <p className="text-sm text-[#0f172a] mt-2 text-center">
+                                        {category.slug}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+        </section>
     )
 }

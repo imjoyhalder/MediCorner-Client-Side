@@ -220,6 +220,7 @@ export function LoginForm({
         }
 
         toast.success("User Logged in Successfully", { id: toastId })
+        window.location.href = "/"
       } catch {
         toast.error("Something went wrong", { id: toastId })
       }
