@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const geistSans = Geist({
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster/>
       </body>
     </html>
   );
