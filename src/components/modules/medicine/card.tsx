@@ -84,67 +84,110 @@
 //     </Link>
 // )
 
-import Link from "next/link"
+// import Link from "next/link"
+// import Image from "next/image"
+// import { Badge } from "@/components/ui/badge"
+// import { Button } from "@/components/ui/button"
+// import { Star, ShoppingCart } from "lucide-react"
+// import { Medicine } from "@/types/medicine"
+
+// export function MedicineCard({ medicine }: { medicine: Medicine }) {
+//     const price = medicine.sellers[0]?.price ?? 0
+
+//     return (
+//         <Link
+//             href={`/medicine/${medicine.id}`}
+//             className="group rounded-lg border bg-white p-4 shadow-sm transition hover:shadow-md"
+//         >
+//             {/* Image */}
+//             <div className="relative aspect-square overflow-hidden rounded-md bg-muted">
+//                 <Image
+//                     fill
+//                     src={medicine.thumbnail || "/Kerfin7-NEA-2139.jpg"}
+//                     alt={medicine.name}
+//                     className="object-cover transition-transform group-hover:scale-105"
+//                 />
+
+//                 {medicine.isOtc && (
+//                     <Badge className="absolute left-2 top-2 bg-[#22c55e]/20 text-[#22c55e]">
+//                         OTC
+//                     </Badge>
+//                 )}
+//             </div>
+
+//             {/* Info */}
+//             <div className="mt-3 space-y-1">
+//                 <h3 className="line-clamp-1 font-semibold text-[#0f172a]">
+//                     {medicine.name}
+//                 </h3>
+
+//                 <p className="text-sm text-muted-foreground">
+//                     {medicine.genericName}
+//                 </p>
+
+//                 <p className="font-bold text-[#22c55e]">৳ {price}</p>
+
+//                 {/* Rating placeholder */}
+//                 <div className="flex items-center gap-1">
+//                     {Array.from({ length: 5 }).map((_, i) => (
+//                         <Star
+//                             key={i}
+//                             className="h-4 w-4 text-gray-300"
+//                         />
+//                     ))}
+//                 </div>
+
+//                 <Button
+//                     size="sm"
+//                     className="mt-2 w-full bg-[#22c55e] hover:bg-green-600"
+//                 >
+//                     <ShoppingCart className="mr-2 h-4 w-4" />
+//                     Add to Cart
+//                 </Button>
+//             </div>
+//         </Link>
+//     )
+// }
+
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Star, ShoppingCart } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
 import { Medicine } from "@/types/medicine"
 
 export function MedicineCard({ medicine }: { medicine: Medicine }) {
     const price = medicine.sellers[0]?.price ?? 0
 
     return (
-        <Link
-            href={`/medicine/${medicine.id}`}
-            className="group rounded-lg border bg-white p-4 shadow-sm transition hover:shadow-md"
-        >
-            {/* Image */}
-            <div className="relative aspect-square overflow-hidden rounded-md bg-muted">
+        <div className="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition">
+            <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
                 <Image
                     fill
                     src={medicine.thumbnail || "/Kerfin7-NEA-2139.jpg"}
                     alt={medicine.name}
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-cover"
                 />
-
                 {medicine.isOtc && (
-                    <Badge className="absolute left-2 top-2 bg-[#22c55e]/20 text-[#22c55e]">
+                    <Badge className="absolute top-2 left-2 bg-[#22c55e]/20 text-[#22c55e]">
                         OTC
                     </Badge>
                 )}
             </div>
 
-            {/* Info */}
             <div className="mt-3 space-y-1">
-                <h3 className="line-clamp-1 font-semibold text-[#0f172a]">
+                <h3 className="font-semibold text-[#0f172a] line-clamp-1">
                     {medicine.name}
                 </h3>
-
                 <p className="text-sm text-muted-foreground">
                     {medicine.genericName}
                 </p>
-
                 <p className="font-bold text-[#22c55e]">৳ {price}</p>
 
-                {/* Rating placeholder */}
-                <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                            key={i}
-                            className="h-4 w-4 text-gray-300"
-                        />
-                    ))}
-                </div>
-
-                <Button
-                    size="sm"
-                    className="mt-2 w-full bg-[#22c55e] hover:bg-green-600"
-                >
+                <Button className="w-full mt-2 bg-[#22c55e] hover:bg-green-600">
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     Add to Cart
                 </Button>
             </div>
-        </Link>
+        </div>
     )
 }

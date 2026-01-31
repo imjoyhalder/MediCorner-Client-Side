@@ -22,20 +22,20 @@ export default async function CategorySection() {
 
                 {/* Categories Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {data?.data.map((category: Category) => (
-                        <Link key={category.id} href={`/category/${category.id}`}>
-                            <Card className="border border-gray-200 hover:shadow-lg transition-shadow hover:scale-105 cursor-pointer">
-                                <CardContent className="flex flex-col items-center justify-center p-6">
-                                    <CardTitle className="text-xl font-semibold text-[#22c55e] text-center">
+                    {data?.data?.length ? (
+                        data.data.map((category: Category) => (
+                            <Link key={category.id} href={`/category/${category.id}`}>
+                                <Card className="border border-gray-200 hover:shadow-lg transition-shadow hover:scale-105 cursor-pointer">
+                                    <CardContent className="flex flex-col items-center justify-center p-6">
                                         {category.name}
-                                    </CardTitle>
-                                    <p className="text-sm text-[#0f172a] mt-2 text-center">
-                                        {category.slug}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        ))
+                    ) : (
+                        <p className="text-center text-muted-foreground">No categories found</p>
+                    )}
+
                 </div>
             </div>
         </section>

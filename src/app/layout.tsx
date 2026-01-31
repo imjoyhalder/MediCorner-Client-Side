@@ -43,7 +43,7 @@ export default function RootLayout({
         className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Toaster/>
+        <Toaster richColors/>
       </body>
     </html>
   );

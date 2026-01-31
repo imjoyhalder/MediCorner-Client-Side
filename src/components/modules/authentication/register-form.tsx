@@ -1,414 +1,5 @@
-// import { cn } from "@/lib/utils"
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent } from "@/components/ui/card"
-// import {
-//   Field,
-//   FieldDescription,
-//   FieldGroup,
-//   FieldLabel,
-//   FieldSeparator,
-// } from "@/components/ui/field"
-// import { Input } from "@/components/ui/input"
-// import Image from "next/image"
-
-// export function SignupForm({
-//   className,
-//   ...props
-// }: React.ComponentProps<"div">) {
-//   return (
-//     <div className={cn("flex flex-col gap-6", className)} {...props}>
-//       <Card className="overflow-hidden p-0">
-//         <CardContent className="grid p-0 md:grid-cols-2">
-//           <form className="p-6 md:p-8">
-//             <FieldGroup>
-//               <div className="flex flex-col items-center gap-2 text-center">
-//                 <h1 className="text-2xl font-bold">Create your account</h1>
-//                 <p className="text-muted-foreground text-sm text-balance">
-//                   Enter your email below to create your account
-//                 </p>
-//               </div>
-//               <Field>
-//                 <FieldLabel htmlFor="email">Email</FieldLabel>
-//                 <Input
-//                   id="email"
-//                   type="email"
-//                   placeholder="jon@gmail.com"
-//                   required
-//                 />
-//                 <FieldDescription>
-//                   We&apos;ll use this to contact you. We will not share your
-//                   email with anyone else.
-//                 </FieldDescription>
-//               </Field>
-//               <Field>
-//                 <Field className="grid grid-cols-2 gap-4">
-//                   <Field>
-//                     <FieldLabel htmlFor="password">Password</FieldLabel>
-//                     <Input id="password" type="password" required />
-//                   </Field>
-//                   <Field>
-//                     <FieldLabel htmlFor="confirm-password">
-//                       Confirm Password
-//                     </FieldLabel>
-//                     <Input id="confirm-password" type="password" required />
-//                   </Field>
-//                 </Field>
-//                 <FieldDescription>
-//                   Must be at least 8 characters long.
-//                 </FieldDescription>
-//               </Field>
-//               <Field>
-//                 <Button type="submit">Create Account</Button>
-//               </Field>
-//               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-//                 Or continue with
-//               </FieldSeparator>
-//               <Field className="grid grid-cols-3 gap-4">
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Apple</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Google</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Meta</span>
-//                 </Button>
-//               </Field>
-//               <FieldDescription className="text-center">
-//                 Already have an account? <a href="#">Sign in</a>
-//               </FieldDescription>
-//             </FieldGroup>
-//           </form>
-//           <div className="bg-muted relative hidden md:block">
-//             <Image
-//               width={400}
-//               height={400}
-//               src="/register.jpg"
-//               alt="Image"
-//               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-//             />
-//           </div>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   )
-// }
-
-
 
 // 'use client'
-// import { cn } from "@/lib/utils"
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent } from "@/components/ui/card"
-// import {
-//   Field,
-//   FieldDescription,
-//   FieldGroup,
-//   FieldLabel,
-//   FieldSeparator,
-// } from "@/components/ui/field"
-// import { Input } from "@/components/ui/input"
-// import { Switch } from "@/components/ui/switch"
-// import Image from "next/image"
-// import { useState } from "react"
-// import Link from "next/link"
-
-// export function SignupForm({
-//   className,
-//   ...props
-// }: React.ComponentProps<"div">) {
-//   const [isSeller, setIsSeller] = useState(false)
-
-//   return (
-//     <div className={cn("flex flex-col gap-6", className)} {...props}>
-//       <Card className="overflow-hidden p-0">
-//         <CardContent className="grid p-0 md:grid-cols-2">
-//           <form className="p-6 md:p-8">
-//             <FieldGroup>
-//               <div className="flex flex-col items-center gap-2 text-center">
-//                 <h1 className="text-2xl font-bold">Create your account</h1>
-//                 <p className="text-muted-foreground text-sm text-balance">
-//                   Enter your details below to create your account
-//                 </p>
-//               </div>
-
-//               {/* Name */}
-//               <Field>
-//                 <FieldLabel htmlFor="name">Name</FieldLabel>
-//                 <Input id="name" type="text" placeholder="Jon Doe" required />
-//               </Field>
-
-//               {/* Email */}
-//               <Field>
-//                 <FieldLabel htmlFor="email">Email</FieldLabel>
-//                 <Input
-//                   id="email"
-//                   type="email"
-//                   placeholder="jon@gmail.com"
-//                   required
-//                 />
-//               </Field>
-
-//               {/* Password */}
-//               <Field>
-//                 <FieldLabel htmlFor="password">Password</FieldLabel>
-//                 <Input
-//                   id="password"
-//                   type="password"
-//                   placeholder="Enter your password"
-//                   required
-//                 />
-//               </Field>
-
-//               {/* Customer / Seller Toggle */}
-//               <Field className="flex items-center justify-between">
-//                 <FieldLabel>Register as Seller?</FieldLabel>
-//                 <Switch
-//                   checked={isSeller}
-//                   onCheckedChange={setIsSeller}
-//                 />
-//               </Field>
-
-//               {/* Submit */}
-//               <Field>
-//                 <Button type="submit">Create Account</Button>
-//               </Field>
-
-//               {/* Separator */}
-//               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-//                 Or continue with
-//               </FieldSeparator>
-
-//               {/* Google / Other buttons */}
-//               <Field className="grid grid-cols-3 gap-4">
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Apple</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Google</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Meta</span>
-//                 </Button>
-//               </Field>
-
-//               <FieldDescription className="text-center">
-//                 Already have an account? <Link href="/login">Sign in</Link>
-//               </FieldDescription>
-//             </FieldGroup>
-//           </form>
-
-//           <div className="bg-muted relative hidden md:block">
-//             <Image
-//               width={400}
-//               height={400}
-//               src="/register.jpg"
-//               alt="Image"
-//               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-//             />
-//           </div>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   )
-// }
-
-// "use client"
-
-// import { cn } from "@/lib/utils"
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent } from "@/components/ui/card"
-// import {
-//   Field,
-//   FieldDescription,
-//   FieldGroup,
-//   FieldLabel,
-//   FieldSeparator,
-// } from "@/components/ui/field"
-// import { Input } from "@/components/ui/input"
-// import { Switch } from "@/components/ui/switch"
-// import Image from "next/image"
-// import { useState } from "react"
-// import Link from "next/link"
-
-// export function SignupForm({
-//   className,
-//   ...props
-// }: React.ComponentProps<"div">) {
-//   const [isSeller, setIsSeller] = useState(false)
-
-//   return (
-//     <div className={cn("flex flex-col gap-6", className)} {...props}>
-//       <Card className="overflow-hidden p-0">
-//         <CardContent className="grid p-0 md:grid-cols-2">
-//           <form className="p-6 md:p-8">
-//             <FieldGroup>
-//               {/* Header */}
-//               <div className="flex flex-col items-center gap-2 text-center">
-//                 <h1 className="text-2xl font-bold">Create your account</h1>
-//                 <p className="text-muted-foreground text-sm text-balance">
-//                   Enter your details below to create your account
-//                 </p>
-//               </div>
-
-//               {/* Name */}
-//               <Field>
-//                 <FieldLabel htmlFor="name">Name</FieldLabel>
-//                 <Input id="name" type="text" placeholder="Jon Doe" required />
-//               </Field>
-
-//               {/* Email */}
-//               <Field>
-//                 <FieldLabel htmlFor="email">Email</FieldLabel>
-//                 <Input
-//                   id="email"
-//                   type="email"
-//                   placeholder="jon@gmail.com"
-//                   required
-//                 />
-//               </Field>
-
-//               {/* Password */}
-//               <Field>
-//                 <FieldLabel htmlFor="password">Password</FieldLabel>
-//                 <Input
-//                   id="password"
-//                   type="password"
-//                   placeholder="Enter your password"
-//                   required
-//                 />
-//                 <FieldDescription>
-//                   Must be at least 8 characters long.
-//                 </FieldDescription>
-//               </Field>
-
-//               {/* Customer / Seller Toggle */}
-//               <Field className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
-//                 <FieldLabel>Account Type</FieldLabel>
-//                 <div className="flex items-center gap-3">
-//                   <span
-//                     className={cn(
-//                       "text-sm font-medium",
-//                       !isSeller ? "text-primary" : "text-muted-foreground"
-//                     )}
-//                   >
-//                     Customer
-//                   </span>
-//                   <Switch
-//                     checked={isSeller}
-//                     onCheckedChange={setIsSeller}
-//                   />
-//                   <span
-//                     className={cn(
-//                       "text-sm font-medium",
-//                       isSeller ? "text-primary" : "text-muted-foreground"
-//                     )}
-//                   >
-//                     Seller
-//                   </span>
-//                 </div>
-//               </Field>
-
-//               {/* Submit */}
-//               <Field>
-//                 <Button type="submit">Create Account</Button>
-//               </Field>
-
-//               {/* Separator */}
-//               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-//                 Or continue with
-//               </FieldSeparator>
-
-//               {/* Social Signups */}
-//               <Field className="grid grid-cols-3 gap-4">
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Apple</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Google</span>
-//                 </Button>
-//                 <Button variant="outline" type="button">
-//                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                     <path
-//                       d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"
-//                       fill="currentColor"
-//                     />
-//                   </svg>
-//                   <span className="sr-only">Sign up with Meta</span>
-//                 </Button>
-//               </Field>
-
-//               <FieldDescription className="text-center">
-//                 Already have an account? <Link href="/login">Sign in</Link>
-//               </FieldDescription>
-//             </FieldGroup>
-//           </form>
-
-//           {/* Image */}
-//           <div className="bg-muted relative hidden md:block">
-//             <Image
-//               width={400}
-//               height={400}
-//               src="/register.jpg"
-//               alt="Image"
-//               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-//             />
-//           </div>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   )
-// }
-
-// "use client"
 
 // import { cn } from "@/lib/utils"
 // import { Button } from "@/components/ui/button"
@@ -425,48 +16,46 @@
 // import { Switch } from "@/components/ui/switch"
 // import Image from "next/image"
 // import Link from "next/link"
-// import { useForm } from "@tanstack/react-form"
-// import * as z from "zod"
 // import { toast } from "sonner"
+// import * as z from "zod"
+// import { useForm } from "@tanstack/react-form"
 // import { authClient } from "@/lib/auth-client"
 
 // const formSchema = z.object({
 //   name: z.string().min(2, "Name is required"),
 //   email: z.email(),
 //   password: z.string().min(8, "Minimum 8 characters"),
-//   role: z.enum(["CUSTOMER", "SELLER"]),
+//   role: z.enum(["CUSTOMER", "SELLER"]).refine(
+//     (val) => val !== undefined,
+//     { message: "Please select account type" }
+//   ),
 // })
 
-// export function SignupForm({
+
+// export function RegisterForm({
 //   className,
 //   ...props
 // }: React.ComponentProps<"div">) {
-
-//   const handleGoogleSignup = async () => {
-//     await authClient.signIn.social({
-//       provider: "google",
-//       callbackURL: "http://localhost:3000",
-//     })
-//   }
 
 //   const form = useForm({
 //     defaultValues: {
 //       name: "",
 //       email: "",
 //       password: "",
-//       role: "CUSTOMER" as "CUSTOMER" | "SELLER",
+//       role: undefined as "CUSTOMER" | "SELLER" | undefined,
 //     },
 //     validators: {
 //       onSubmit: formSchema,
 //     },
 //     onSubmit: async ({ value }) => {
 //       const toastId = toast.loading("Creating account...")
+
 //       try {
+
 //         const { error } = await authClient.signUp.email({
 //           name: value.name,
 //           email: value.email,
 //           password: value.password,
-//           role: value.role,
 //         })
 
 //         if (error) {
@@ -474,8 +63,19 @@
 //           return
 //         }
 
+//         await fetch("/api/user/role", {
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify({
+//             email: value.email,
+//             role: value.role,
+//           }),
+//         })
+
 //         toast.success("Account created successfully", { id: toastId })
+
 //         window.location.href = "/login"
+
 //       } catch {
 //         toast.error("Something went wrong", { id: toastId })
 //       }
@@ -487,7 +87,7 @@
 //       <Card className="overflow-hidden p-0">
 //         <CardContent className="grid p-0 md:grid-cols-2">
 
-//           {/* FORM */}
+//           {/* FORM SIDE */}
 //           <form
 //             onSubmit={(e) => {
 //               e.preventDefault()
@@ -498,142 +98,148 @@
 //             <FieldGroup>
 
 //               <div className="flex flex-col items-center gap-2 text-center">
-//                 <h1 className="text-2xl font-bold">Create your account</h1>
-//                 <p className="text-muted-foreground text-sm">
-//                   Enter your details below to create your account
+//                 <h1 className="text-2xl font-bold">Create an account</h1>
+//                 <p className="text-muted-foreground">
+//                   Choose role and sign up
 //                 </p>
 //               </div>
 
 //               {/* NAME */}
 //               <form.Field name="name">
-//                 {(field) => (
-//                   <Field>
-//                     <FieldLabel>Name</FieldLabel>
-//                     <Input
-//                       value={field.state.value}
-//                       onChange={(e) =>
-//                         field.handleChange(e.target.value)
-//                       }
-//                     />
-//                     {!field.state.meta.isValid && (
-//                       <FieldError errors={field.state.meta.errors} />
-//                     )}
-//                   </Field>
-//                 )}
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid
+
+//                   return (
+//                     <Field>
+//                       <FieldLabel>Name</FieldLabel>
+//                       <Input
+//                         value={field.state.value}
+//                         onChange={(e) =>
+//                           field.handleChange(e.target.value)
+//                         }
+//                       />
+//                       {isInvalid && (
+//                         <FieldError errors={field.state.meta.errors} />
+//                       )}
+//                     </Field>
+//                   )
+//                 }}
 //               </form.Field>
 
 //               {/* EMAIL */}
 //               <form.Field name="email">
-//                 {(field) => (
-//                   <Field>
-//                     <FieldLabel>Email</FieldLabel>
-//                     <Input
-//                       type="email"
-//                       value={field.state.value}
-//                       onChange={(e) =>
-//                         field.handleChange(e.target.value)
-//                       }
-//                     />
-//                     {!field.state.meta.isValid && (
-//                       <FieldError errors={field.state.meta.errors} />
-//                     )}
-//                   </Field>
-//                 )}
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid
+
+//                   return (
+//                     <Field>
+//                       <FieldLabel>Email</FieldLabel>
+//                       <Input
+//                         type="email"
+//                         value={field.state.value}
+//                         onChange={(e) =>
+//                           field.handleChange(e.target.value)
+//                         }
+//                       />
+//                       {isInvalid && (
+//                         <FieldError errors={field.state.meta.errors} />
+//                       )}
+//                     </Field>
+//                   )
+//                 }}
 //               </form.Field>
 
 //               {/* PASSWORD */}
 //               <form.Field name="password">
-//                 {(field) => (
-//                   <Field>
-//                     <FieldLabel>Password</FieldLabel>
-//                     <Input
-//                       type="password"
-//                       value={field.state.value}
-//                       onChange={(e) =>
-//                         field.handleChange(e.target.value)
-//                       }
-//                     />
-//                     <FieldDescription>
-//                       Must be at least 8 characters long.
-//                     </FieldDescription>
-//                     {!field.state.meta.isValid && (
-//                       <FieldError errors={field.state.meta.errors} />
-//                     )}
-//                   </Field>
-//                 )}
-//               </form.Field>
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid
 
-//               {/* ROLE */}
-//               <form.Field name="role">
-//                 {(field) => (
-//                   <Field className="flex flex-col md:flex-row items-center justify-between gap-2">
-//                     <FieldLabel>Account Type</FieldLabel>
-//                     <div className="flex items-center gap-3">
-//                       <span
-//                         className={cn(
-//                           "text-sm font-medium",
-//                           field.state.value === "CUSTOMER"
-//                             ? "text-primary"
-//                             : "text-muted-foreground"
-//                         )}
-//                       >
-//                         Customer
-//                       </span>
-//                       <Switch
-//                         checked={field.state.value === "SELLER"}
-//                         onCheckedChange={(checked) =>
-//                           field.handleChange(
-//                             checked ? "SELLER" : "CUSTOMER"
-//                           )
+//                   return (
+//                     <Field>
+//                       <FieldLabel>Password</FieldLabel>
+//                       <Input
+//                         type="password"
+//                         value={field.state.value}
+//                         onChange={(e) =>
+//                           field.handleChange(e.target.value)
 //                         }
 //                       />
-//                       <span
-//                         className={cn(
-//                           "text-sm font-medium",
-//                           field.state.value === "SELLER"
-//                             ? "text-primary"
-//                             : "text-muted-foreground"
-//                         )}
-//                       >
-//                         Seller
-//                       </span>
-//                     </div>
-//                   </Field>
-//                 )}
+//                       {isInvalid && (
+//                         <FieldError errors={field.state.meta.errors} />
+//                       )}
+//                     </Field>
+//                   )
+//                 }}
+//               </form.Field>
+
+//               {/* ROLE (REQUIRED) */}
+//               <form.Field name="role">
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid
+
+//                   return (
+//                     <Field className="flex flex-col gap-2">
+//                       <FieldLabel>Account Type</FieldLabel>
+
+//                       <div className="flex items-center gap-3">
+//                         <span
+//                           className={cn(
+//                             "text-sm font-medium",
+//                             field.state.value === "CUSTOMER"
+//                               ? "text-primary"
+//                               : "text-muted-foreground"
+//                           )}
+//                         >
+//                           Customer
+//                         </span>
+
+//                         <Switch
+//                           checked={field.state.value === "SELLER"}
+//                           onCheckedChange={(checked) =>
+//                             field.handleChange(
+//                               checked ? "SELLER" : "CUSTOMER"
+//                             )
+//                           }
+//                         />
+
+//                         <span
+//                           className={cn(
+//                             "text-sm font-medium",
+//                             field.state.value === "SELLER"
+//                               ? "text-primary"
+//                               : "text-muted-foreground"
+//                           )}
+//                         >
+//                           Seller
+//                         </span>
+//                       </div>
+
+//                       {isInvalid && (
+//                         <FieldError errors={field.state.meta.errors} />
+//                       )}
+//                     </Field>
+//                   )
+//                 }}
 //               </form.Field>
 
 //               <Button type="submit">Create Account</Button>
 
-//               <FieldSeparator>
-//                 Or continue with
-//               </FieldSeparator>
-
-//               {/* GOOGLE ONLY (ICON UNCHANGED) */}
-//               <Button
-//                 variant="outline"
-//                 type="button"
-//                 onClick={handleGoogleSignup}
-//               >
-//                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                   <path
-//                     d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-//                     fill="currentColor"
-//                   />
-//                 </svg>
-//                 <span className="sr-only">Sign up with Google</span>
-//               </Button>
-
 //               <FieldDescription className="text-center">
 //                 Already have an account?{" "}
-//                 <Link href="/login">Sign in</Link>
+//                 <Link href="/login">Login</Link>
 //               </FieldDescription>
+
 //             </FieldGroup>
 //           </form>
 
-//           {/* IMAGE (UNCHANGED) */}
+//           {/* IMAGE SIDE */}
 //           <div className="bg-muted relative hidden md:block">
 //             <Image
-//               src="/register.jpg"
+//               src="/Kerfin7-NEA-2139.jpg"
 //               alt="Register"
 //               fill
 //               className="object-cover dark:brightness-[0.2]"
@@ -646,6 +252,7 @@
 //   )
 // }
 
+
 'use client'
 
 import { cn } from "@/lib/utils"
@@ -657,28 +264,33 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-import Image from "next/image"
-import Link from "next/link"
 import { toast } from "sonner"
 import * as z from "zod"
 import { useForm } from "@tanstack/react-form"
 import { authClient } from "@/lib/auth-client"
+import { Toggle } from "@/components/ui/toggle"
+import { Hop, User,  } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { env } from "@/env"
 
+// ----------------------------
+// Form Validation Schema
+// ----------------------------
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
-  email: z.email(),
+  email: z.email("Invalid email address"),
   password: z.string().min(8, "Minimum 8 characters"),
-  role: z.enum(["CUSTOMER", "SELLER"]).refine(
-    (val) => val !== undefined,
-    { message: "Please select account type" }
-  ),
+  role: z.enum(["CUSTOMER", "SELLER"], {
+    required_error: "Please select account type",
+  }),
 })
 
-
+// ----------------------------
+// Component
+// ----------------------------
 export function RegisterForm({
   className,
   ...props
@@ -689,16 +301,15 @@ export function RegisterForm({
       name: "",
       email: "",
       password: "",
-      role: undefined as "CUSTOMER" | "SELLER" | undefined,
+      role: "CUSTOMER" as "CUSTOMER" | "SELLER", // default
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating account...")
-
       try {
-        
+
         const { error } = await authClient.signUp.email({
           name: value.name,
           email: value.email,
@@ -710,20 +321,21 @@ export function RegisterForm({
           return
         }
 
-        await fetch("/api/user/role", {
+        const res = await fetch(`${env.BACKEND_URL}/user/role`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: value.email,
-            role: value.role,
-          }),
+          body: JSON.stringify({ email: value.email, role: value.role }),
         })
 
+        if (!res.ok) {
+          toast.error("Failed to set role", { id: toastId })
+          return
+        }
+
         toast.success("Account created successfully", { id: toastId })
-        
         window.location.href = "/login"
 
-      } catch {
+      } catch (err) {
         toast.error("Something went wrong", { id: toastId })
       }
     },
@@ -731,8 +343,8 @@ export function RegisterForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
+      <Card className="overflow-hidden p-0 shadow-lg">
+        <CardContent className="grid md:grid-cols-2">
 
           {/* FORM SIDE */}
           <form
@@ -740,15 +352,12 @@ export function RegisterForm({
               e.preventDefault()
               form.handleSubmit()
             }}
-            className="p-6 md:p-8"
+            className="p-6 md:p-10 flex flex-col gap-4"
           >
             <FieldGroup>
-
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Create an account</h1>
-                <p className="text-muted-foreground">
-                  Choose role and sign up
-                </p>
+                <p className="text-muted-foreground">Choose your role and sign up</p>
               </div>
 
               {/* NAME */}
@@ -756,19 +365,15 @@ export function RegisterForm({
                 {(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
-
                   return (
                     <Field>
                       <FieldLabel>Name</FieldLabel>
                       <Input
                         value={field.state.value}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value)
-                        }
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        placeholder="John Doe"
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
@@ -779,20 +384,16 @@ export function RegisterForm({
                 {(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
-
                   return (
                     <Field>
                       <FieldLabel>Email</FieldLabel>
                       <Input
                         type="email"
                         value={field.state.value}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value)
-                        }
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        placeholder="john@example.com"
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
@@ -803,88 +404,75 @@ export function RegisterForm({
                 {(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
-
                   return (
                     <Field>
                       <FieldLabel>Password</FieldLabel>
                       <Input
                         type="password"
                         value={field.state.value}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value)
-                        }
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        placeholder="********"
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
               </form.Field>
 
-              {/* ROLE (REQUIRED) */}
+              {/* ROLE TOGGLE */}
               <form.Field name="role">
                 {(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid
-
                   return (
                     <Field className="flex flex-col gap-2">
                       <FieldLabel>Account Type</FieldLabel>
 
-                      <div className="flex items-center gap-3">
-                        <span
+                      <div className="flex items-center gap-4">
+                        <button
+                          type="button"
+                          onClick={() => field.handleChange("CUSTOMER")}
                           className={cn(
-                            "text-sm font-medium",
+                            "flex items-center gap-1 px-4 py-2 rounded-md border transition-all",
                             field.state.value === "CUSTOMER"
-                              ? "text-primary"
-                              : "text-muted-foreground"
+                              ? "bg-primary text-white border-primary"
+                              : "bg-background text-muted-foreground border-border"
                           )}
                         >
-                          Customer
-                        </span>
+                          <User size={18} /> Customer
+                        </button>
 
-                        <Switch
-                          checked={field.state.value === "SELLER"}
-                          onCheckedChange={(checked) =>
-                            field.handleChange(
-                              checked ? "SELLER" : "CUSTOMER"
-                            )
-                          }
-                        />
-
-                        <span
+                        <button
+                          type="button"
+                          onClick={() => field.handleChange("SELLER")}
                           className={cn(
-                            "text-sm font-medium",
+                            "flex items-center gap-1 px-4 py-2 rounded-md border transition-all",
                             field.state.value === "SELLER"
-                              ? "text-primary"
-                              : "text-muted-foreground"
+                              ? "bg-primary text-white border-primary"
+                              : "bg-background text-muted-foreground border-border"
                           )}
                         >
-                          Seller
-                        </span>
+                          <Hop size={18} /> Seller
+                        </button>
                       </div>
 
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
               </form.Field>
 
-              <Button type="submit">Create Account</Button>
+              <Button type="submit" className="mt-2">Create Account</Button>
 
-              <FieldDescription className="text-center">
+              <FieldDescription className="text-center mt-1">
                 Already have an account?{" "}
-                <Link href="/login">Login</Link>
+                <Link href="/login" className="text-primary font-medium">Login</Link>
               </FieldDescription>
-
             </FieldGroup>
           </form>
 
           {/* IMAGE SIDE */}
-          <div className="bg-muted relative hidden md:block">
+          <div className="hidden md:block relative bg-muted">
             <Image
               src="/Kerfin7-NEA-2139.jpg"
               alt="Register"
@@ -892,7 +480,6 @@ export function RegisterForm({
               className="object-cover dark:brightness-[0.2]"
             />
           </div>
-
         </CardContent>
       </Card>
     </div>
