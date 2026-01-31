@@ -1,4 +1,5 @@
-import { Navbar1 } from "@/components/layouts/navbar1"
+
+import { Navbar } from "@/components/layouts/navbar1"
 import type { ReactNode } from "react"
 
 
@@ -8,14 +9,16 @@ interface PublicLayoutProps {
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
     return (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div >
             {/* Navbar */}
-            <Navbar1 />
+            <Navbar  />
 
             {/* Main Content */}
-            <main>
-                {children}
-            </main>
+            <div className="bg-gradient-to-r from-green-100 to-green-50 ">
+                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    {children}
+                </main>
+            </div>
 
             {/* Footer */}
             {/* <Footer /> */}
