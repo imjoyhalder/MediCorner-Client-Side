@@ -72,7 +72,7 @@ const HeroSectionMinimal: React.FC<HeroSectionMinimalProps> = async ({
     description = 'Buy genuine OTC medicines from verified sellers. Fast delivery across Bangladesh.',
 }) => {
     return (
-        <section className=" py-12 md:py-18 px-4">
+        <section className=" py-10 md:py-16 px-4">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
                 <div className="text-center lg:text-left space-y-6">
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
