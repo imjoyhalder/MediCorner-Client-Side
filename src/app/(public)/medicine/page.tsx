@@ -1,19 +1,11 @@
-import Page from '@/components/modules/medicine/card';
-import { MedicineServices } from '@/services/medecine.service';
-import React from 'react';
+import { AllMedicinePage } from "@/components/modules/medicine/allMedicine"
+import { MedicineServices } from "@/services/medecine.service"
 
-const Medicine = async () => {
 
-    const { data } = await MedicineServices.getAllMedicine()
-    console.log(data);
-    return (
-        <div>
-            <h1 className='text-2xl font-bold text-center text-green-600'>Our All Medicine</h1>
-            {
-                <Page/>
-            }
-        </div>
-    );
-};
+export default async function Page() {
+    const res = await MedicineServices.getAllMedicine()
 
-export default Medicine;
+    if (!res.data?.data) return null
+
+    return <AllMedicinePage medicines={res.data.data} />
+}

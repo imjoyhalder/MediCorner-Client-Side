@@ -722,6 +722,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import ShoppingCartSheet from "../modules/cart/cart";
 
 interface NavItem {
   title: string;
@@ -799,7 +800,7 @@ export function Navbar() {
           {/* RIGHT: Actions */}
           <div className="flex items-center gap-3">
             {/* Cart */}
-            <Link href="/cart">
+            {/* <Link href="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-8 w-8 text-[#0f172a]" />
                 {cartCount > 0 && (
@@ -808,7 +809,8 @@ export function Navbar() {
                   </span>
                 )}
               </Button>
-            </Link>
+            </Link> */}
+            <ShoppingCartSheet/>
 
             {/* Desktop Auth */}
             <div className="hidden md:flex items-center gap-2">
