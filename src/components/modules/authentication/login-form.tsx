@@ -31,6 +31,13 @@ const formSchema = z.object({
   password: z.string().min(8),
 });
 
+const handleGoogleLogin = async () => {
+  const data = authClient.signIn.social({
+    provider: 'google',
+    callbackURL: "http://localhost:3000"
+  })
+}
+
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -150,12 +157,7 @@ export function LoginForm() {
               variant="outline"
               type="button"
               className="w-full flex items-center gap-2"
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: "google",
-                  callbackURL: "/",
-                })
-              }
+              onClick={()=> handleGoogleLogin()}
             >
               <Chrome className="h-5 w-5" />
               Continue with Google

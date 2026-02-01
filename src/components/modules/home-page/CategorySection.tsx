@@ -10,7 +10,7 @@ export interface Category {
 
 export default async function CategorySection() {
     const { data } = await CategoryServices.getAllCategories()
-    console.log(data)
+    // console.log(data)
 
     return (
         <section className="bg-[#f8fafc] py-12">

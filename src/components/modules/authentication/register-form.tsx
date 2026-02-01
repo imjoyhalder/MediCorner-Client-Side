@@ -35,7 +35,6 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-/* ================= LOGIC (UNCHANGED) ================= */
 
 interface signUpData {
   name: string;
@@ -56,7 +55,12 @@ const formSchema = z.object({
   becomeSeller: z.boolean(),
 });
 
-/* ================= COMPONENT ================= */
+const handleGoogleLogin = async () => {
+  const data = authClient.signIn.social({
+    provider: 'google',
+    callbackURL: "http://localhost:3000"
+  })
+}
 
 export function RegisterForm() {
   const router = useRouter();
@@ -108,7 +112,7 @@ export function RegisterForm() {
 
   return (
     <Card className="w-full max-w-md mx-auto shadow-xl border-border bg-[#f8fafc]">
-      {/* ===== Brand Header ===== */}
+
       <CardHeader className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-3">
           <Image
@@ -261,6 +265,7 @@ export function RegisterForm() {
 
             {/* GOOGLE */}
             <Button
+              onClick={()=> handleGoogleLogin()}
               type="button"
               variant="outline"
               className="w-full flex items-center gap-2"
