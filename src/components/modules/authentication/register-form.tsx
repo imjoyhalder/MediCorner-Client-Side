@@ -3,25 +3,45 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { User, Store } from "lucide-react";
+import {
+  User,
+  Store,
+  Eye,
+  EyeOff,
+  Chrome,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
+/* ================= LOGIC (UNCHANGED) ================= */
+
 interface signUpData {
-  name: string,
-  email: string,
-  password: string,
-  role: UserRole
+  name: string;
+  email: string;
+  password: string;
+  role: UserRole;
 }
 
 export enum UserRole {
@@ -36,6 +56,7 @@ const formSchema = z.object({
   becomeSeller: z.boolean(),
 });
 
+/* ================= COMPONENT ================= */
 
 export function RegisterForm() {
   const router = useRouter();
@@ -58,9 +79,8 @@ export function RegisterForm() {
           name: value.name,
           email: value.email,
           password: value.password,
-          role: UserRole.CUSTOMER
+          role: UserRole.CUSTOMER,
         };
-
 
         signUpData.role = value.becomeSeller
           ? UserRole.SELLER
@@ -87,9 +107,27 @@ export function RegisterForm() {
   });
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg">
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Create an account</CardTitle>
+    <Card className="w-full max-w-md mx-auto shadow-xl border-border bg-[#f8fafc]">
+      {/* ===== Brand Header ===== */}
+      <CardHeader className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="MediCorner"
+            width={60}
+            height={60}
+            priority
+          />
+          <div className="leading-tight hidden md:block">
+            <p className="text-2xl font-bold text-[#15a215]">
+              MediCorner
+            </p>
+          </div>
+        </div>
+
+        <CardTitle className="text-xl text-[#0f172a] mt-2">
+          Create your account
+        </CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -100,15 +138,16 @@ export function RegisterForm() {
           }}
         >
           <FieldGroup className="space-y-4">
-
-            {/* Name */}
+            {/* NAME */}
             <form.Field name="name">
               {(field) => (
                 <Field>
                   <FieldLabel>Full Name</FieldLabel>
                   <Input
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) =>
+                      field.handleChange(e.target.value)
+                    }
                     placeholder="John Doe"
                   />
                   <FieldError errors={field.state.meta.errors} />
@@ -116,7 +155,7 @@ export function RegisterForm() {
               )}
             </form.Field>
 
-            {/* Email */}
+            {/* EMAIL */}
             <form.Field name="email">
               {(field) => (
                 <Field>
@@ -124,7 +163,9 @@ export function RegisterForm() {
                   <Input
                     type="email"
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) =>
+                      field.handleChange(e.target.value)
+                    }
                     placeholder="john@example.com"
                   />
                   <FieldError errors={field.state.meta.errors} />
@@ -132,7 +173,7 @@ export function RegisterForm() {
               )}
             </form.Field>
 
-            {/* Password */}
+            {/* PASSWORD */}
             <form.Field name="password">
               {(field) => (
                 <Field>
@@ -141,15 +182,23 @@ export function RegisterForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={(e) =>
+                        field.handleChange(e.target.value)
+                      }
                       className="pr-12"
                     />
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground"
+                      onClick={() =>
+                        setShowPassword(!showPassword)
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-[#0f172a]"
                     >
-                      {showPassword ? "Hide" : "Show"}
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
                     </button>
                   </div>
                   <FieldError errors={field.state.meta.errors} />
@@ -157,21 +206,20 @@ export function RegisterForm() {
               )}
             </form.Field>
 
-            {/* Role Toggle (Professional) */}
+            {/* ROLE TOGGLE */}
             <form.Field name="becomeSeller">
               {(field) => (
                 <Field>
                   <FieldLabel>Account Type</FieldLabel>
 
                   <div className="grid grid-cols-2 gap-3">
-                    {/* CUSTOMER */}
                     <button
                       type="button"
                       onClick={() => field.handleChange(false)}
                       className={cn(
-                        "flex items-center justify-center gap-2 rounded-lg border p-3 transition",
+                        "flex items-center justify-center gap-2 rounded-lg border p-3 transition-all",
                         !field.state.value
-                          ? "border-primary bg-primary/10 text-primary"
+                          ? "border-[#22c55e] bg-[#22c55e]/10 text-[#22c55e]"
                           : "border-border text-muted-foreground"
                       )}
                     >
@@ -179,14 +227,13 @@ export function RegisterForm() {
                       Customer
                     </button>
 
-                    {/* SELLER */}
                     <button
                       type="button"
                       onClick={() => field.handleChange(true)}
                       className={cn(
-                        "flex items-center justify-center gap-2 rounded-lg border p-3 transition",
+                        "flex items-center justify-center gap-2 rounded-lg border p-3 transition-all",
                         field.state.value
-                          ? "border-primary bg-primary/10 text-primary"
+                          ? "border-[#22c55e] bg-[#22c55e]/10 text-[#22c55e]"
                           : "border-border text-muted-foreground"
                       )}
                     >
@@ -204,17 +251,33 @@ export function RegisterForm() {
               )}
             </form.Field>
 
-            <Button type="submit" className="w-full">
+            {/* SUBMIT */}
+            <Button
+              type="submit"
+              className="w-full bg-[#22c55e] hover:bg-green-600"
+            >
               Create Account
             </Button>
 
+            {/* GOOGLE */}
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full flex items-center gap-2"
+            >
+              <Chrome className="h-5 w-5" />
+              Continue with Google
+            </Button>
           </FieldGroup>
         </form>
       </CardContent>
 
       <CardFooter className="justify-center text-sm text-muted-foreground">
         Already have an account?
-        <Link href="/login" className="ml-1 text-primary font-medium">
+        <Link
+          href="/login"
+          className="ml-1 text-[#22c55e] font-medium hover:underline"
+        >
           Login
         </Link>
       </CardFooter>
