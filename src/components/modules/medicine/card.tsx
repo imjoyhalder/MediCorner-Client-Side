@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
 import Image from "next/image";
+import { addToCart } from "@/actions/cart.action";
 
 interface MedicineCardProps {
     medicine: Medicine;
