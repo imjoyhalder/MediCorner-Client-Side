@@ -31,7 +31,7 @@ export function DropdownMenuAvatar() {
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
                         <BadgeCheckIcon />
-                        <Link href={'/dashboard/admin-dashboard'}>Dashboard</Link>
+                        <Link href={'/dashboard'}>Dashboard</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <CreditCardIcon />

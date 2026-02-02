@@ -1,6 +1,9 @@
+import AdminOverview from "@/components/modules/admin-dashboard/adminOverview";
+
 export default async function AdminDashboardPage() {
     return (
         <div>
+            <AdminOverview/>
             <h1 className="text-2xl font-semibold mb-2">
                 Admin Dashboard
             </h1>
