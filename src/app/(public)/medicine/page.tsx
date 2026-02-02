@@ -1,18 +1,12 @@
-// app/medicines/page.tsx (Server Component)
+
 import { Metadata } from "next";
-// import { MedicineServices } from "@/services/medicine.service";
-// import { MedicineSearchBar } from "@/components/medicines/search-bar";
-// import { MedicineFilters } from "@/components/medicines/filters";
-// import { MedicineCard } from "@/components/medicines/medicine-card";
-// import { MedicinePagination } from "@/components/medicines/pagination";
-// import { SortOptions } from "@/components/medicines/sort-options";
 import { MedicineFilters as FilterType } from "@/types/medicine";
 import { Filter, Search } from "lucide-react";
 import { MedicineServices } from "@/services/medecine.service";
 import { MedicineSearchBar } from "@/components/modules/medicine/search-bar";
 import { MedicineFilters } from "@/components/modules/medicine/medicineFilters";
 import { MedicineCard } from "@/components/modules/medicine/card";
-import { MedicinePagination } from "@/components/modules/medicine/medicinePagination";
+// import { MedicinePagination } from "@/components/modules/medicine/medicinePagination";
 import { SortOptions } from "@/components/modules/medicine/sort-options";
 
 export const metadata: Metadata = {
