@@ -1,52 +1,32 @@
-"use client"
+"use client";
 
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious
-} from "@/components/ui/pagination"
+import { useEffect, useState } from "react";
+import { Medicine } from "@/types/medicine";
+import { MedicineServices } from "@/services/medecine.service";
+import { MedicineCard } from "./card";
 
-export function MedicinePagination({
-    page,
-    totalPages,
-    onPageChange
-}: {
-    page: number
-    totalPages: number
-    onPageChange: (p: number) => void
-}) {
+export default function AllMedicinesPage() {
+    const [medicines, setMedicines] = useState<Medicine[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchMedicines = async () => {
+            setLoading(true);
+            const res = await MedicineServices.getAllMedicine({ page: 1, limit: 20 });
+            setLoading(false);
+            if (res.data) setMedicines(res.data.data);
+        };
+        fetchMedicines();
+    }, []);
+
+    if (loading) return <p>Loading medicines...</p>;
+
     return (
-        <Pagination className="mt-10">
-            <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious
-                        href="#"
-                        onClick={() => onPageChange(Math.max(1, page - 1))}
-                    />
-                </PaginationItem>
-
-                {Array.from({ length: totalPages }).map((_, i) => (
-                    <PaginationItem key={i}>
-                        <PaginationLink
-                            href="#"
-                            isActive={page === i + 1}
-                            onClick={() => onPageChange(i + 1)}
-                        >
-                            {i + 1}
-                        </PaginationLink>
-                    </PaginationItem>
-                ))}
-
-                <PaginationItem>
-                    <PaginationNext
-                        href="#"
-                        onClick={() => onPageChange(Math.min(totalPages, page + 1))}
-                    />
-                </PaginationItem>
-            </PaginationContent>
-        </Pagination>
-    )
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-background">
+            {medicines.map((med) => (
+                <MedicineCard key={med.id} medicine={med} />
+            ))}
+        </div>
+    );
 }
+

@@ -149,45 +149,196 @@
 //     )
 // }
 
-import Image from "next/image"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ShoppingCart } from "lucide-react"
-import { Medicine } from "@/types/medicine"
+// import Image from "next/image"
+// import { Badge } from "@/components/ui/badge"
+// import { Button } from "@/components/ui/button"
+// import { ShoppingCart } from "lucide-react"
+// import { Medicine } from "@/types/medicine"
 
-export function MedicineCard({ medicine }: { medicine: Medicine }) {
-    const price = medicine.sellers[0]?.price ?? 0
+// export function MedicineCard({ medicine }: { medicine: Medicine }) {
+//     const price = medicine.sellers[0]?.price ?? 0
+
+//     return (
+//         <div className="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition">
+//             <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
+//                 <Image
+//                     fill
+//                     src={medicine.thumbnail || "/Kerfin7-NEA-2139.jpg"}
+//                     alt={medicine.name}
+//                     className="object-cover"
+//                 />
+//                 {medicine.isOtc && (
+//                     <Badge className="absolute top-2 left-2 bg-[#22c55e]/20 text-[#22c55e]">
+//                         OTC
+//                     </Badge>
+//                 )}
+//             </div>
+
+//             <div className="mt-3 space-y-1">
+//                 <h3 className="font-semibold text-[#0f172a] line-clamp-1">
+//                     {medicine.name}
+//                 </h3>
+//                 <p className="text-sm text-muted-foreground">
+//                     {medicine.genericName}
+//                 </p>
+//                 <p className="font-bold text-[#22c55e]">৳ {price}</p>
+
+//                 <Button className="w-full mt-2 bg-[#22c55e] hover:bg-green-600">
+//                     <ShoppingCart className="mr-2 h-4 w-4" />
+//                     Add to Cart
+//                 </Button>
+//             </div>
+//         </div>
+//     )
+// }
+
+// "use client";
+
+// import { Medicine } from "@/types/medicine";
+// import { Button } from "@/components/ui/button";
+// import { CartService } from "@/services/cart.service";
+// import { toast } from "sonner"; // optional for notifications
+// import { useState } from "react";
+// import Image from "next/image";
+
+// interface MedicineCardProps {
+//     medicine: Medicine;
+// }
+
+// export function MedicineCard({ medicine }: MedicineCardProps) {
+//     const [loading, setLoading] = useState(false);
+
+//     const handleAddToCart = async () => {
+//         if (!medicine.sellers.length) {
+//             return toast.error("No stock available");
+//         }
+
+//         setLoading(true);
+
+//         const sellerMedicineId = medicine.sellers[0].id; // ✅ correct ID
+
+//         try {
+//             const res = await fetch("http://localhost:5000/api/v1/cart/add", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify({
+//                     sellerMedicineId,
+//                     quantity: 1,
+//                 }),
+//             });
+
+//             const data = await res.json();
+
+//             if (data.success) toast.success(data.message);
+//             else toast.error(data.message);
+//         } catch {
+//             toast.error("Failed to add to cart");
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+
+//     return (
+//         <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col">
+//             <div className="h-40 w-full bg-gray-100 flex items-center justify-center rounded-lg mb-4">
+//                 {medicine.thumbnail ? (
+//                     <Image width={300} height={250} src={medicine.thumbnail} alt={medicine.name} className="h-full object-contain" />
+//                 ) : (
+//                     <Image width={300} height={250} src={'/herb-capsule-infographic.png'} alt={medicine.name} className="h-full object-contain" />
+//                 )}
+//             </div>
+//             <h3 className="text-lg font-semibold text-primary">{medicine.brandName}</h3>
+//             <p className="text-gray-700 text-sm mb-2">{medicine.genericName}</p>
+//             <p className="text-gray-500 text-sm mb-2">Manufacturer: {medicine.manufacturer || "N/A"}</p>
+//             <p className="text-gray-900 font-semibold mb-4">৳{medicine.sellers[0]?.price || "0"}</p>
+//             <Button
+//                 className="bg-primary hover:bg-green-600"
+//                 onClick={handleAddToCart}
+//                 disabled={loading}
+//             >
+//                 {loading ? "Adding..." : "Add to Cart"}
+//             </Button>
+//         </div>
+//     );
+// }
+
+
+"use client";
+
+import { Medicine } from "@/types/medicine";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { useState } from "react";
+import Image from "next/image";
+import { addToCart } from "@/services/cart.service";
+
+
+interface MedicineCardProps {
+    medicine: Medicine;
+}
+
+export function MedicineCard({ medicine }: MedicineCardProps) {
+    const [loading, setLoading] = useState(false);
+
+    const handleAddToCart = async () => {
+
+        if (!medicine.sellers.length) {
+            return toast.error("No stock available");
+        }
+
+        console.log(medicine);
+
+        setLoading(true);
+
+        const sellerMedicineId = medicine.sellers[0].id;
+
+        const res = await addToCart(sellerMedicineId, 1);
+
+        setLoading(false);
+
+        if (!res.success) {
+            toast.warning('Please login for add to cart!');  
+            return;
+        }
+
+
+        if (res.success) toast.success(res.message);
+        else toast.error(res.message);
+    };
 
     return (
-        <div className="rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition">
-            <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
+        <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col">
+            <div className="h-40 w-full bg-gray-100 flex items-center justify-center rounded-lg mb-4">
                 <Image
-                    fill
-                    src={medicine.thumbnail || "/Kerfin7-NEA-2139.jpg"}
+                    width={300}
+                    height={250}
+                    src={medicine.thumbnail || "/herb-capsule-infographic.png"}
                     alt={medicine.name}
-                    className="object-cover"
+                    className="h-full object-contain"
                 />
-                {medicine.isOtc && (
-                    <Badge className="absolute top-2 left-2 bg-[#22c55e]/20 text-[#22c55e]">
-                        OTC
-                    </Badge>
-                )}
             </div>
 
-            <div className="mt-3 space-y-1">
-                <h3 className="font-semibold text-[#0f172a] line-clamp-1">
-                    {medicine.name}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                    {medicine.genericName}
-                </p>
-                <p className="font-bold text-[#22c55e]">৳ {price}</p>
+            <h3 className="text-lg font-semibold text-primary">
+                {medicine.brandName}
+            </h3>
+            <p className="text-gray-700 text-sm mb-2">
+                {medicine.genericName}
+            </p>
+            <p className="text-gray-500 text-sm mb-2">
+                Manufacturer: {medicine.manufacturer || "N/A"}
+            </p>
+            <p className="text-gray-900 font-semibold mb-4">
+                ৳{medicine.sellers[0]?.price || "0"}
+            </p>
 
-                <Button className="w-full mt-2 bg-[#22c55e] hover:bg-green-600">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Add to Cart
-                </Button>
-            </div>
+            <Button
+                className="bg-green-500 hover:bg-green-600"
+                onClick={handleAddToCart}
+                disabled={loading}
+            >
+                {loading ? "Adding..." : "Add to Cart"}
+            </Button>
         </div>
-    )
+    );
 }

@@ -1,50 +1,69 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Medicine } from "@/types/medicine"
-import { Category } from "@/types/category"
-import { MedicineFilters } from "./medicineFilters"
-import { MedicineCard } from "./card"
-import { MedicinePagination } from "./medicinePagination"
+import { useEffect, useState } from "react";
+import { Medicine, Category, MedicineFilters } from "@/types/medicine";
+import { MedicineServices } from "@/services/medecine.service";
+import { FilterSort } from "./filters";
+import { MedicineCard } from "./card";
+import { userService } from "@/services/user.service";
 
-export function AllMedicineClient({
-    medicines,
-    categories
-}: {
-    medicines: Medicine[]
-    categories: Category[]
-}) {
-    const [page, setPage] = useState(1)
 
-    const manufacturers = Array.from(
-        new Set(medicines.map(m => m.manufacturer))
-    )
+export default function AllMedicinesPage() {
+    const [medicines, setMedicines] = useState<Medicine[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [manufacturers, setManufacturers] = useState<string[]>([]);
+    const [filters, setFilters] = useState<MedicineFilters>({ page: 1, limit: 20 });
+    const [loading, setLoading] = useState(true);
+
+    // Fetch categories + manufacturers on mount
+    useEffect(() => {
+        const fetchMeta = async () => {
+            const catRes = await MedicineServices.getCategories();
+            if (catRes.data) setCategories(catRes.data);
+
+            const manRes = await MedicineServices.getManufacturers();
+            if (manRes.data) setManufacturers(manRes.data);
+        };
+        fetchMeta();
+    }, []);
+
+    const session = userService.getSession()
+    console.log(session);
+    // Fetch medicines whenever filters change
+    useEffect(() => {
+        const fetchMedicines = async () => {
+            setLoading(true);
+            const res = await MedicineServices.getAllMedicine(filters);
+            setLoading(false);
+            if (res.data) setMedicines(res.data.data);
+        };
+        fetchMedicines();
+    }, [filters]);
+
+    if (loading) return <p className="p-6 text-center text-gray-500">Loading medicines...</p>;
 
     return (
-        <div className="mx-auto max-w-7xl px-4 py-10">
-            <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
-                {/* Filters */}
-                <MedicineFilters
-                    categories={categories}
-                    manufacturers={manufacturers}
-                    onChange={() => { }}
-                />
+        <div className="bg-background min-h-screen p-6">
+            <h1 className="text-4xl font-bold text-primary mb-6">
+                Browse All Available Medicines
+            </h1>
 
-                {/* Grid */}
-                <div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {medicines.map(m => (
-                            <MedicineCard key={m.id} medicine={m} />
-                        ))}
-                    </div>
+            {/* <FilterSort
+                categories={categories}
+                manufacturers={manufacturers}
+                minPrice={0}
+                maxPrice={10000}
+                currentFilters={filters}
+                onChange={(f) => setFilters({ ...filters, ...f })}
+            /> */}
 
-                    <MedicinePagination
-                        page={page}
-                        totalPages={5}
-                        onPageChange={setPage}
-                    />
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                {medicines.length ? (
+                    medicines.map((med: Medicine) => <MedicineCard key={med.id} medicine={med} />)
+                ) : (
+                    <p className="col-span-full text-center text-gray-500">No medicines found.</p>
+                )}
             </div>
         </div>
-    )
+    );
 }

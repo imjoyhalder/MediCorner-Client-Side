@@ -12,8 +12,9 @@ export const proxy = async (request: NextRequest) => {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    const role = data.user.role;
 
+    const role = data.user.role;
+    console.log(data);
     if (role === Roles.admin) {
         if (!pathname.startsWith("/dashboard/admin-dashboard")) {
             return NextResponse.redirect(
@@ -45,5 +46,7 @@ export const proxy = async (request: NextRequest) => {
     return NextResponse.redirect(new URL("/login", request.url));
 };
 export const config = {
-    matcher: ["/dashboard/:path*"],
+    matcher: [
+        "/dashboard/:path*", 
+    ],
 };
