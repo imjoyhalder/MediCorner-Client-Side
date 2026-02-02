@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { MedicineResponse, MedicineFilters, Category } from "@/types/medicine";
+import { cookies, headers } from "next/headers";
 
 export const MedicineServices = {
     getAllMedicine: async (filters?: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
@@ -33,7 +34,8 @@ export const MedicineServices = {
 
     getManufacturers: async (): Promise<{ data: string[] | null; error: string | null }> => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/medicine/manufacturers`, { next: { revalidate: 3600 } });
+            const res = await fetch(`${env.BACKEND_URL}/medicine/manufacturers`,
+                { next: { revalidate: 3600 } });
             if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
             const data = await res.json();
             return data.success ? { data: data.data, error: null } : { data: null, error: data.message };
@@ -43,3 +45,21 @@ export const MedicineServices = {
         }
     }
 };
+
+export async function getSingleMedicine(id: string) {
+    try {
+
+        const res = await fetch(`${env.BACKEND_URL}/medicine/${id}`, {
+            headers: {
+                'Application-Type': 'application/json'
+            }
+        }
+        )
+        const data = res.json()
+        
+
+
+    } catch (error) {
+
+    }
+}

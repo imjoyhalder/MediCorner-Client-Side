@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import Image from "next/image";
 import { addToCart } from "@/actions/cart.action";
+import Link from "next/link";
 
 interface MedicineCardProps {
     medicine: Medicine;
@@ -59,7 +60,9 @@ export function MedicineCard({ medicine }: MedicineCardProps) {
             <p className="text-gray-900 font-semibold mb-4">
                 ৳{medicine.sellers[0]?.price || "0"}
             </p>
-
+            <Button className="mb-2">
+                <Link href={`medicine/${medicine.id}`}>view</Link>
+            </Button>
             <Button
                 className="bg-green-500 hover:bg-green-600"
                 onClick={handleAddToCart}

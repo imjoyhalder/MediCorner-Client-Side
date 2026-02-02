@@ -11,6 +11,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 
 import { CartItem, CartListItem } from "./cart-item";
 import { getCart } from "@/services/cart.service";
+import { placeOrder } from "@/services/order.service";
 
 export default function ShoppingCartSheet() {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,13 +56,30 @@ export default function ShoppingCartSheet() {
         0
     );
 
-    const placeOrder = () => {
+    const handlePlaceOrder = async () => {
         if (!address) {
             return toast.error("Please enter shipping address");
         }
 
-        toast.success("Order placed successfully! (Cash on Delivery)");
-        // order API call 
+        const toastId = toast.loading("Placing your order...");
+
+        try {
+            const res = await placeOrder(address);
+
+            if (!res.success) {
+                toast.error(res.message || "Failed to place order", { id: toastId });
+                return;
+            }
+
+            toast.success("Order placed successfully! (Cash on Delivery)", {
+                id: toastId,
+            });
+            window.location.replace("/dashboard/user-dashboard");
+
+
+        } catch {
+            toast.error("Something went wrong", { id: toastId });
+        }
     };
 
     return (
@@ -144,7 +162,7 @@ export default function ShoppingCartSheet() {
                         className="mt-5 w-full bg-green-500 hover:bg-green-600 text-white"
                         size="lg"
                         disabled={!address || cart.length === 0}
-                        onClick={placeOrder}
+                        onClick={handlePlaceOrder}
                     >
                         Place Order
                     </Button>

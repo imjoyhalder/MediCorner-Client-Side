@@ -18,18 +18,16 @@ export function SortOptions() {
     const handleSortChange = (value: string) => {
         const params = new URLSearchParams(searchParams.toString());
 
-        // যদি value "default" হয় তাহলে sortBy parameter remove করি
         if (value === "default") {
             params.delete("sortBy");
         } else {
             params.set("sortBy", value);
         }
 
-        params.set("page", "1"); // নতুন sorting এ first page-এ যাওয়া
-        router.push(`/medicines?${params.toString()}`);
+        params.set("page", "1"); 
+        router.push(`/medicine?${params.toString()}`);
     };
 
-    // URL থেকে current value নেওয়া, যদি না থাকে তাহলে "default"
     const currentSort = searchParams.get("sortBy") || "default";
 
     return (

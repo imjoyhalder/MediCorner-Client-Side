@@ -4,7 +4,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface MedicineSearchBarProps {
     initialSearch?: string;
@@ -14,32 +14,30 @@ export function MedicineSearchBar({ initialSearch = "" }: MedicineSearchBarProps
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [search, setSearch] = useState(initialSearch);
+    const param = searchParams.get("search") || "";
+    const [search, setSearch] = useState(initialSearch || param);
     const [isSearching, setIsSearching] = useState(false);
-
-
-    useEffect(() => {
-        const param = searchParams.get("search") || "";
-        setSearch(param);
-    }, [searchParams]);
 
     const handleSearch = () => {
         if (isSearching) return;
 
         const params = new URLSearchParams(searchParams.toString());
+        const value = search.trim();
 
-        if (search.trim()) {
-            params.set("search", search.trim());
+        if (value) {
+            params.set("search", value);
             params.set("page", "1");
         } else {
             params.delete("search");
+            params.set("page", "1");
         }
 
         setIsSearching(true);
-        router.push(`/medicines?${params.toString()}`);
+        router.push(`/medicine?${params.toString()}`);
 
         setTimeout(() => setIsSearching(false), 300);
     };
+
 
     return (
         <div className="w-full max-w-3xl mx-auto">

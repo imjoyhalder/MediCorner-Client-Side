@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -26,20 +26,15 @@ export function FilterSort({
     currentFilters,
     onChange
 }: FilterSortProps) {
-    const [priceRange, setPriceRange] = useState<[number, number]>([minPrice, maxPrice]);
-    const [selectedCategory, setSelectedCategory] = useState<string>("all");
-    const [selectedManufacturer, setSelectedManufacturer] = useState<string>("all");
-    const [showOtcOnly, setShowOtcOnly] = useState(false);
-    const [sortBy, setSortBy] = useState<string>("default");
-
-    // Sync with current filters
-    useEffect(() => {
-        setSelectedCategory(currentFilters.category || "all");
-        setSelectedManufacturer(currentFilters.manufacturer || "all");
-        setPriceRange([currentFilters.minPrice || minPrice, currentFilters.maxPrice || maxPrice]);
-        setShowOtcOnly(currentFilters.isOtc || false);
-        setSortBy(currentFilters.sortBy || "default");
-    }, [currentFilters, minPrice, maxPrice]);
+    // Initialize local state from props (controlled)
+    const [priceRange, setPriceRange] = useState<[number, number]>([
+        currentFilters.minPrice ?? minPrice,
+        currentFilters.maxPrice ?? maxPrice
+    ]);
+    const [selectedCategory, setSelectedCategory] = useState(currentFilters.category ?? "all");
+    const [selectedManufacturer, setSelectedManufacturer] = useState(currentFilters.manufacturer ?? "all");
+    const [showOtcOnly, setShowOtcOnly] = useState(currentFilters.isOtc ?? false);
+    const [sortBy, setSortBy] = useState(currentFilters.sortBy ?? "default");
 
     const applyFilters = () => {
         onChange({
@@ -48,7 +43,7 @@ export function FilterSort({
             minPrice: priceRange[0],
             maxPrice: priceRange[1],
             isOtc: showOtcOnly,
-            sortBy,
+            sortBy
         });
     };
 
@@ -64,7 +59,7 @@ export function FilterSort({
             minPrice: undefined,
             maxPrice: undefined,
             isOtc: undefined,
-            sortBy: undefined,
+            sortBy: undefined
         });
     };
 
@@ -78,18 +73,14 @@ export function FilterSort({
 
     return (
         <div className="space-y-6 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            {/* Header */}
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                     <Filter className="h-5 w-5" />
                     Filters & Sort
                 </h3>
                 {hasActiveFilters && (
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={resetFilters}
-                        className="text-gray-500 hover:text-gray-700"
-                    >
+                    <Button variant="ghost" size="sm" onClick={resetFilters} className="text-gray-500 hover:text-gray-700">
                         <X className="h-4 w-4 mr-1" />
                         Clear All
                     </Button>
@@ -97,53 +88,41 @@ export function FilterSort({
             </div>
 
             {/* Category */}
-            <div className="space-y-1">
-                <Label className="font-medium text-gray-700">Category</Label>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="All Categories" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Categories</SelectItem>
-                        {categories.map((cat) => (
-                            <SelectItem key={cat.id} value={cat.slug}>
-                                {cat.name}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger>
+                    <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    {categories.map((cat) => (
+                        <SelectItem key={cat.id} value={cat.slug}>
+                            {cat.name}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
 
             {/* Manufacturer */}
-            <div className="space-y-1">
-                <Label className="font-medium text-gray-700">Manufacturer</Label>
-                <Select value={selectedManufacturer} onValueChange={setSelectedManufacturer}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="All Manufacturers" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Manufacturers</SelectItem>
-                        {manufacturers.map((m) => (
-                            <SelectItem key={m} value={m}>
-                                {m}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
+            <Select value={selectedManufacturer} onValueChange={setSelectedManufacturer}>
+                <SelectTrigger>
+                    <SelectValue placeholder="All Manufacturers" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">All Manufacturers</SelectItem>
+                    {manufacturers.map((m) => (
+                        <SelectItem key={m} value={m}>
+                            {m}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
 
             {/* Price */}
             <div className="space-y-1">
                 <Label className="font-medium text-gray-700">
-                    Price Range: ৳{priceRange[0]} - ৳{priceRange[1]}
+                    Price: ৳{priceRange[0]} - ৳{priceRange[1]}
                 </Label>
-                <Slider
-                    value={priceRange}
-                    min={minPrice}
-                    max={maxPrice}
-                    step={10}
-                    onValueChange={setPriceRange}
-                />
+                <Slider value={priceRange} min={minPrice} max={maxPrice} step={10} onValueChange={setPriceRange} />
                 <div className="flex justify-between text-sm text-gray-500">
                     <span>৳{minPrice}</span>
                     <span>৳{maxPrice}</span>
@@ -152,38 +131,28 @@ export function FilterSort({
 
             {/* OTC */}
             <div className="flex items-center space-x-2">
-                <Checkbox
-                    id="otc-only"
-                    checked={showOtcOnly}
-                    onCheckedChange={(val) => setShowOtcOnly(val as boolean)}
-                />
+                <Checkbox id="otc-only" checked={showOtcOnly} onCheckedChange={(val) => setShowOtcOnly(val as boolean)} />
                 <Label htmlFor="otc-only" className="text-sm font-medium text-gray-700 cursor-pointer">
                     Show OTC Only
                 </Label>
             </div>
 
-            {/* Sort By */}
-            <div className="space-y-1">
-                <Label className="font-medium text-gray-700">Sort By</Label>
-                <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="Default" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="default">Default</SelectItem>
-                        <SelectItem value="price-asc">Price: Low → High</SelectItem>
-                        <SelectItem value="price-desc">Price: High → Low</SelectItem>
-                        <SelectItem value="name-asc">Name: A → Z</SelectItem>
-                        <SelectItem value="name-desc">Name: Z → A</SelectItem>
-                    </SelectContent>
-                </Select>
-            </div>
+            {/* Sort */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Default" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="default">Default</SelectItem>
+                    <SelectItem value="price-asc">Price: Low → High</SelectItem>
+                    <SelectItem value="price-desc">Price: High → Low</SelectItem>
+                    <SelectItem value="name-asc">Name: A → Z</SelectItem>
+                    <SelectItem value="name-desc">Name: Z → A</SelectItem>
+                </SelectContent>
+            </Select>
 
             {/* Apply */}
-            <Button
-                className="w-full bg-primary hover:bg-green-700 text-white"
-                onClick={applyFilters}
-            >
+            <Button className="w-full bg-primary hover:bg-green-700 text-white" onClick={applyFilters}>
                 Apply
             </Button>
         </div>

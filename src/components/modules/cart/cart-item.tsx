@@ -35,7 +35,7 @@ export function CartListItem({ item, refreshCart }: { item: CartItem; refreshCar
     const medicine = item.sellerMedicine.medicine;
 
     const inc = async () => {
-        if (!item.in_stock || loading) return;
+        // if (!item.in_stock || loading) return;
 
         const newQty = qty + 1;
         setLoading(true);

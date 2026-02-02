@@ -36,6 +36,9 @@ export function Navbar() {
   const isActive = (url: string) =>
     url === "/" ? pathname === "/" : pathname.startsWith(url);
 
+  const user = authClient.useSession().data?.user
+  console.log(user);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-[#f8fafc]/95 backdrop-blur">
       <div className="container mx-auto px-4">
@@ -79,7 +82,7 @@ export function Navbar() {
           </div>
 
           {/* CENTER: Search */}
-          <div className="hidden md:flex flex-1 max-w-md mx-10">
+          {/* <div className="hidden md:flex flex-1 max-w-md mx-10">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input
@@ -87,7 +90,7 @@ export function Navbar() {
                 className="pl-9 bg-white border-slate-300 focus-visible:ring-[#22c55e]"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* RIGHT: Actions */}
           <div className="flex items-center gap-3">

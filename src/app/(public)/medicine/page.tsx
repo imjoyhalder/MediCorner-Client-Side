@@ -82,7 +82,7 @@ export default async function MedicinesPage({ searchParams }: MedicinesPageProps
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 py-12">
+            <div className="">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center">
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
