@@ -12,8 +12,8 @@ export default async function AdminUsersPage() {
     return (
         <div className="p-4 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight">User Management</h1>
-                <p className="text-slate-500 font-medium">Manage and monitor customer and seller accounts</p>
+                <h1 className="text-3xl font-black text-slate-900 ">User Management</h1>
+                <h1 className="text-slate-500 font-medium">Manage and monitor customer and seller accounts</h1>
             </div>
 
             <UsersTable initialUsers={res.data} />
