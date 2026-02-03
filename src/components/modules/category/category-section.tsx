@@ -10,7 +10,7 @@ import {
     Stethoscope
 } from "lucide-react";
 import { Category } from "@/types/medicine";
-import { CategoryServices } from "@/services/category.service";
+import { getAllCategories } from "@/services/category.service";
 
 const getDynamicIcon = (slug: string) => {
     const iconClass = "h-5 w-5 transition-transform duration-500 group-hover:scale-110";
@@ -27,7 +27,8 @@ const getDynamicIcon = (slug: string) => {
 };
 
 export default async function CategorySection() {
-    const res = await CategoryServices.getAllCategories();
+    const res = await getAllCategories();
+    console.log(res);
     const categories = res.data || [];
 
     return (

@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Syne } from "next/font/google";
+import { Geist, Geist_Mono, Syne, Inter } from "next/font/google"; // ১. ইন্টার ইমপোর্ট করুন
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 
 const syne = Syne({
   variable: "--font-syne",
@@ -22,13 +19,17 @@ const syne = Syne({
   weight: ["400", "500", "600", "700", "800"], 
 });
 
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "MediCorner",
   description: "Your trusted medicine shop",
   icons: {
     icon: "/logo.png", 
-    // shortcut: "/favicon.ico",
-    // apple: "/apple-touch-icon.png",
   },
 };
 
@@ -40,7 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+
+        className={`${inter.variable} ${syne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
         <Toaster richColors/>

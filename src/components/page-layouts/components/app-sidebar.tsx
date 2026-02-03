@@ -23,7 +23,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import Image from "next/image";
 
-/* ------------------ NAV ITEMS (ADMIN) ------------------ */
 
 const adminNav: NavItem[] = [
   {
@@ -42,13 +41,12 @@ const adminNav: NavItem[] = [
     icon: Users,
   },
   {
-    title: "Settings",
-    url: "/dashboard/admin-dashboard/settings",
+    title: "Categories",
+    url: "/dashboard/admin-dashboard/category",
     icon: Settings,
   },
 ];
 
-/* ------------------ SIDEBAR ------------------ */
 
 export function AppSidebar(
   props: React.ComponentProps<typeof Sidebar>
@@ -88,7 +86,7 @@ export function AppSidebar(
         </SidebarMenu>
       </SidebarHeader>
 
-      {/* ---------- CONTENT ---------- */}
+
       <SidebarContent>
         <ScrollArea className="h-full">
           <NavMain items={adminNav} />
