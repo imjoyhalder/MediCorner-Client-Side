@@ -18,7 +18,7 @@ export async function placeOrder(shippingAddress: string) {
         });
 
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         if (!res.ok || !data.success) {
             return {
                 success: false,

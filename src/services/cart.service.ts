@@ -13,7 +13,7 @@ export async function getCart() {
     try {
         const cookieStore = await cookies();
 
-        console.log(cookieStore);
+        // console.log(cookieStore);
 
         const res = await fetch(`${env.BACKEND_URL}/cart`, {
             method: "GET",
