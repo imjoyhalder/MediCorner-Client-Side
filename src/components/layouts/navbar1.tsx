@@ -37,7 +37,7 @@ export function Navbar() {
     url === "/" ? pathname === "/" : pathname.startsWith(url);
 
   const user = authClient.useSession().data?.user
-  console.log(user);
+  // console.log(user);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-[#f8fafc]/95 backdrop-blur">

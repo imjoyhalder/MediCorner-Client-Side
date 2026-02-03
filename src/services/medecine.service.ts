@@ -1,6 +1,7 @@
+
 import { env } from "@/env";
 import { MedicineResponse, MedicineFilters, Category } from "@/types/medicine";
-import { cookies, headers } from "next/headers";
+
 
 export const MedicineServices = {
     getAllMedicine: async (filters?: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
@@ -48,18 +49,30 @@ export const MedicineServices = {
 
 export async function getSingleMedicine(id: string) {
     try {
-
-        const res = await fetch(`${env.BACKEND_URL}/medicine/${id}`, {
+       
+        const res = await fetch(`http://localhost:5000/api/v1/medicine/${id}`, {
             headers: {
                 'Application-Type': 'application/json'
             }
         }
         )
-        const data = res.json()
-        
+        const data = await res.json();
 
+        if (!res.ok || !data.success) {
+            return {
+                success: false,
+                message: data.message || "Failed to update quantity",
+            };
+        }
+
+        return {
+            success: true,
+            message: data.message,
+            data: data.data,
+        };
 
     } catch (error) {
-
+        console.error(error);
+        return { success: false, message: "Something went wrong" };
     }
 }

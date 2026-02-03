@@ -12,12 +12,12 @@ export interface Seller {
     sellerId: string;
 }
 
-export interface Review {
-    rating?: number;
-    comment: string;
-    userId?: string;
-    createdAt?: string;
-}
+// export interface Review {
+//     rating?: number;
+//     comment: string;
+//     userId?: string;
+//     createdAt?: string;
+// }
 
 export interface Medicine {
     id: string;
@@ -59,4 +59,13 @@ export interface MedicineFilters {
     maxPrice?: number;
     isOtc?: boolean;
     sortBy?: string;
+}
+
+export interface Review {
+    id: string;
+    rating: number | null;
+    comment: string;
+    userId: string;
+    medicineId: string;
+    createdAt: string;
 }
