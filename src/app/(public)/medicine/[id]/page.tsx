@@ -12,6 +12,7 @@ import { Medicine, Review } from "@/types/medicine";
 import { toast } from "sonner";
 import { addToCart } from "@/actions/cart.action";
 import { useRouter } from "next/navigation";
+import { postReview } from "@/services/review.service";
 
 const DEFAULT_IMAGE = "/Kerfin7-NEA-2139.jpg";
 
@@ -20,12 +21,13 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
     const [medicine, setMedicine] = useState<Medicine | null>(null);
     const [loading, setLoading] = useState(true);
     const [cartLoading, setCartLoading] = useState(false);
-    
+
     // Review States
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     const [comment, setComment] = useState("");
     const [submittingReview, setSubmittingReview] = useState(false);
+
 
     useEffect(() => {
         const fetchMedicine = async () => {
@@ -49,19 +51,43 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
     };
 
     const handleReviewSubmit = async () => {
+        // 1. Validation
         if (rating === 0) return toast.error("Please select a star rating");
         if (!comment.trim()) return toast.error("Please write a comment");
-        
-        setSubmittingReview(true);
-        // Replace with your actual review submission logic/action
-        setTimeout(() => {
-            toast.success("Review submitted for approval!");
-            setComment("");
-            setRating(0);
-            setSubmittingReview(false);
-        }, 1500);
-    };
 
+        setSubmittingReview(true);
+
+        try {
+
+            if (medicine?.id) {
+                const reviewData = {
+                    rating: rating,
+                    comment: comment,
+                    medicineId: medicine.id
+                };
+                const res = await postReview(reviewData);
+                if (res.success) {
+                    toast.success(res.message || "Review submitted successfully!");
+                    // Reset form
+                    setComment("");
+                    setRating(0);
+
+                    router.refresh(); 
+                } else {
+                    // Handle backend validation or auth errors
+                    toast.error(res.message || "Failed to post review");
+                }
+            }
+
+
+
+        } catch (error) {
+            console.error("Review Error:", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setSubmittingReview(false);
+        }
+    };
     if (loading) return <div className="flex h-[80vh] items-center justify-center"><Loader2 className="h-10 w-10 animate-spin text-green-500" /></div>;
     if (!medicine) return <div className="text-center py-20"><Pill className="mx-auto h-12 w-12 text-slate-300" /><h2 className="text-xl font-medium mt-4">Medicine not found</h2><Button onClick={() => router.back()} className="mt-4">Back</Button></div>;
 
@@ -70,7 +96,7 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
     return (
         <div className="min-h-screen bg-slate-50/50 pb-20 pt-6">
             <div className="max-w-6xl mx-auto px-4 lg:px-8">
-                
+
                 {/* Header */}
                 <div className="mb-6 flex items-center justify-between">
                     <Button variant="ghost" size="sm" onClick={() => router.back()} className="hover:bg-white transition-colors">
@@ -91,7 +117,7 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
                                     <Image src={medicine.thumbnail || DEFAULT_IMAGE} alt={medicine.name} fill className="object-contain p-10" />
                                 </div>
                                 <div className="p-8 flex flex-col justify-center">
-                                    <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">{medicine.brandName}</h1>
+                                    <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">{medicine.name}</h1>
                                     <p className="text-lg font-medium text-green-600 mb-6">{medicine.genericName}</p>
                                     <div className="space-y-4 border-t pt-6">
                                         <div className="flex items-center gap-3 text-slate-600">
@@ -141,14 +167,14 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
                                                 </button>
                                             ))}
                                         </div>
-                                        <Textarea 
-                                            placeholder="Tell us about your experience with this medicine..." 
+                                        <Textarea
+                                            placeholder="Tell us about your experience with this medicine..."
                                             className="min-h-[120px] bg-slate-50 border-none focus-visible:ring-green-500 rounded-2xl p-4"
                                             value={comment}
                                             onChange={(e) => setComment(e.target.value)}
                                         />
-                                        <Button 
-                                            onClick={handleReviewSubmit} 
+                                        <Button
+                                            onClick={handleReviewSubmit}
                                             disabled={submittingReview}
                                             className="w-full sm:w-max px-8 bg-green-600 hover:bg-green-700 rounded-xl"
                                         >

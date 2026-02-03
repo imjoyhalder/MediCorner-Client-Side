@@ -49,16 +49,29 @@ export interface MedicineResponse {
     pagination: Pagination;
 }
 
+// export interface MedicineFilters {
+//     search?: string;
+//     page?: number;
+//     limit?: number;
+//     manufacturer?: string;
+//     category?: string;
+//     minPrice?: number;
+//     maxPrice?: number;
+//     isOtc?: boolean;
+//     sortBy?: string;
+// }
+
 export interface MedicineFilters {
     search?: string;
     page?: number;
     limit?: number;
     manufacturer?: string;
-    category?: string;
+    categoryId?: string; // ব্যাকএন্ড এই কি (key) টি এক্সপেক্ট করছে
     minPrice?: number;
     maxPrice?: number;
     isOtc?: boolean;
     sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
 }
 
 export interface Review {

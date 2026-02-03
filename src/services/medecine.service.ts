@@ -1,26 +1,79 @@
 
 import { env } from "@/env";
-import { MedicineResponse, MedicineFilters, Category } from "@/types/medicine";
+import { Category, Medicine } from "@/types/medicine";
 
+export interface MedicineFilters {
+    search?: string;
+    categoryId?: string;
+    manufacturer?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    page?: number;
+    limit?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+}
+
+export interface MedicineResponse {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: Medicine[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+}
 
 export const MedicineServices = {
-    getAllMedicine: async (filters?: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
+    // getAllMedicine: async (filters: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
+    //     try {
+    //         const params = new URLSearchParams();
+
+    //         (Object.keys(filters) as Array<keyof MedicineFilters>).forEach((key) => {
+    //             const value = filters[key];
+    //             if (value !== undefined && value !== null && value !== "" && value !== "all") {
+    //                 params.append(key, value.toString());
+    //             }
+    //         });
+
+    //         const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, {
+    //             next: { revalidate: 10 }
+    //         });
+
+    //         const result: MedicineResponse = await res.json();
+
+    //         if (!res.ok) {
+    //             throw new Error(result.message || "Failed to fetch medicines");
+    //         }
+
+    //         return { data: result, error: null };
+    //     } catch (error) {
+    //         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+    //         return { data: null, error: errorMessage };
+    //     }
+    // },
+
+    getAllMedicine: async (filters: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
         try {
             const params = new URLSearchParams();
-            Object.entries(filters || {}).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) params.append(key, value.toString());
+            (Object.keys(filters) as Array<keyof MedicineFilters>).forEach((key) => {
+                const value = filters[key];
+                if (value !== undefined && value !== null && value !== "" && value !== "all") {
+                    params.append(key, value.toString());
+                }
             });
 
-            const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, { next: { revalidate: 5 } });
-            if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
-            const data: MedicineResponse = await res.json();
-            return data.success ? { data, error: null } : { data: null, error: data.message };
-        } catch (error) {
-            console.error("Error fetching medicines:", error);
-            return { data: null, error: "Failed to fetch medicine data." };
+            const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, { next: { revalidate: 10 } });
+            const result: MedicineResponse = await res.json();
+            return res.ok ? { data: result, error: null } : { data: null, error: result.message };
+        } catch {
+            return { data: null, error: "Failed to fetch medicines" };
         }
     },
-
+    
     getCategories: async (): Promise<{ data: Category[] | null; error: string | null }> => {
         try {
             const res = await fetch(`${env.BACKEND_URL}/categories`, { next: { revalidate: 60 } });
@@ -49,7 +102,7 @@ export const MedicineServices = {
 
 export async function getSingleMedicine(id: string) {
     try {
-       
+
         const res = await fetch(`http://localhost:5000/api/v1/medicine/${id}`, {
             headers: {
                 'Application-Type': 'application/json'
