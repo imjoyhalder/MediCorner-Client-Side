@@ -25,8 +25,14 @@ const features = [
 
 export default function TrustSection() {
     return (
-        <section className="py-16 bg-transparent">
+        <section className=" bg-transparent">
             <div className="container mx-auto px-4">
+                <div className="text-center mb-10 space-y-2">
+                    <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase">
+                        Why Choose Us
+                    </h2>
+                    <div className="h-1 w-16 bg-green-500 mx-auto rounded-full" />
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {features.map((feature, index) => (
                         <div
