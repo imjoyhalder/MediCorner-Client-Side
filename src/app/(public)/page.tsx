@@ -1,7 +1,10 @@
 
 
 import CategorySection from '@/components/modules/category/category-section';
+import FAQSection from '@/components/modules/home-page/FAQSection';
+import FeaturedMedicines from '@/components/modules/home-page/featuresMedicine';
 import HeroSection from '@/components/modules/home-page/HeroSection';
+import TrustSection from '@/components/modules/home-page/trustSection';
 
 
 const HomePage = async() => {
@@ -12,6 +15,9 @@ const HomePage = async() => {
             <main className="flex-1">
                 <HeroSection />
                 <CategorySection/>
+                <FeaturedMedicines/>
+                <TrustSection/>
+                <FAQSection/>
             </main>
         </div>
     );

@@ -37,3 +37,40 @@ export async function placeOrder(shippingAddress: string) {
         return { success: false, message: "Something went wrong" };
     }
 }
+
+export async function getAllOrderForAdmin() {
+    try {
+        const cookieStore = await cookies();
+
+        const res = await fetch(`${env.BACKEND_URL}/order/all/admin`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Cookie: cookieStore.toString(),
+            },
+            next: { revalidate: 0 }, 
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            return {
+                success: false,
+                message: data.message || "Failed to fetch orders for admin",
+            };
+        }
+
+        return {
+            success: true,
+            message: data.message,
+            data: data.data,
+        };
+
+    } catch (error) {
+        console.error("Admin Orders Fetch Error:", error);
+        return { 
+            success: false, 
+            message: "Something went wrong while fetching orders" 
+        };
+    }
+}

@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
     ChevronRight,
@@ -53,20 +52,20 @@ export default async function CategorySection() {
                     </Link>
                 </div>
 
-                {/* Small & Compact Grid */}
+                {/* Small & Compact Grid with Hover Glow */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
                     {categories.map((category: Category) => (
                         <Link
                             key={category.id}
                             href={`/medicine?categoryId=${category.id}&page=1`}
-                            className="group flex items-center gap-3 bg-white p-3 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-green-200 transition-all duration-300"
+                            className="group flex items-center gap-3 bg-white p-3 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)] hover:-translate-y-1"
                         >
                             {/* Smaller Icon Box */}
-                            <div className="p-2.5 bg-slate-50 rounded-xl group-hover:bg-green-50 shrink-0 transition-colors">
+                            <div className="p-2.5 bg-slate-50 rounded-xl group-hover:bg-green-50 shrink-0 transition-colors duration-300">
                                 {getDynamicIcon(category.slug)}
                             </div>
 
-                            {/* Category Name - Small & Bold */}
+                            {/* Category Name */}
                             <h3 className="font-bold text-slate-700 group-hover:text-green-700 transition-colors text-xs md:text-sm line-clamp-1">
                                 {category.name}
                             </h3>
@@ -77,7 +76,7 @@ export default async function CategorySection() {
                 {/* Empty State */}
                 {categories.length === 0 && (
                     <div className="text-center py-8 bg-white/50 rounded-2xl border border-dashed border-slate-200">
-                        <p className="text-slate-400 text-sm">No categories found.</p>
+                        <p className="text-slate-400 text-sm font-medium">No categories found.</p>
                     </div>
                 )}
             </div>
