@@ -34,8 +34,8 @@ export interface ApiResponse<T> {
 
 
 export interface SellerMedicine {
-    medicineId: string;               // Medicine ID
-    sellerMedicineId: string; // Seller-specific junction ID
+    medicineId: string;               
+    sellerMedicineId: string; 
     medicineName: string;
     brandName: string;
     genericName: string;

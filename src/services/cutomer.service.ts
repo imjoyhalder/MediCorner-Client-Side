@@ -1,3 +1,4 @@
+'use server'
 import { env } from "@/env";
 import { cookies } from "next/headers";
 
@@ -11,7 +12,7 @@ export const getMyOrders = async () => {
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 10, tags: ["orders"] },
+            next: { revalidate: 0, tags: ["orders"] },
         });
 
         return await res.json();
@@ -58,3 +59,19 @@ export const updateProfile = async (userData: { name?: string; phone?: string; i
         return { success: false, message: "Profile update failed" };
     }
 };
+
+export const getSingleCustomer = async () => {
+    try {
+        const cookieStore = await cookies();
+
+        const res = await fetch(`${env.BACKEND_URL}/user/single-user`, {
+            headers: {
+                "Content-Type": "application/json",
+                Cookie: cookieStore.toString(),
+            },
+        });
+        return await res.json();
+    } catch (error) {
+        return { success: false, message: "User not found" };
+    }
+}

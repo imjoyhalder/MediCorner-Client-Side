@@ -35,9 +35,9 @@ export const proxy = async (request: NextRequest) => {
     }
 
     if (role === Roles.customer) {
-        if (!pathname.startsWith("/dashboard/user-dashboard")) {
+        if (!pathname.startsWith("/dashboard/customer-dashboard")) {
             return NextResponse.redirect(
-                new URL("/dashboard/user-dashboard", request.url)
+                new URL("/dashboard/customer-dashboard", request.url)
             );
         }
         return NextResponse.next();
