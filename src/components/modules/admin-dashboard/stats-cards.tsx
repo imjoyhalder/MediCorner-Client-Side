@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { AdminStatisticsData } from "@/types/admin";
+import { AdminStatisticsData } from "@/types/admin-dashboard";
 
 export function AdminStatsCards({
     stats,

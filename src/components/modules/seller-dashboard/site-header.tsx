@@ -10,7 +10,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 export function SiteHeader() {
   const pathname = usePathname();
 
-  // URL theke title generate kora (e.g., /dashboard/seller-dashboard/orders -> Orders)
+  
   const getPageTitle = () => {
     if (pathname === "/dashboard/seller-dashboard") return "Seller Overview";
     if (pathname.includes("/orders")) return "Order Management";
