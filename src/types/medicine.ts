@@ -12,13 +12,6 @@ export interface Seller {
     sellerId: string;
 }
 
-// export interface Review {
-//     rating?: number;
-//     comment: string;
-//     userId?: string;
-//     createdAt?: string;
-// }
-
 export interface Medicine {
     id: string;
     name: string;
@@ -49,24 +42,13 @@ export interface MedicineResponse {
     pagination: Pagination;
 }
 
-// export interface MedicineFilters {
-//     search?: string;
-//     page?: number;
-//     limit?: number;
-//     manufacturer?: string;
-//     category?: string;
-//     minPrice?: number;
-//     maxPrice?: number;
-//     isOtc?: boolean;
-//     sortBy?: string;
-// }
 
 export interface MedicineFilters {
     search?: string;
     page?: number;
     limit?: number;
     manufacturer?: string;
-    categoryId?: string; // ব্যাকএন্ড এই কি (key) টি এক্সপেক্ট করছে
+    categoryId?: string; 
     minPrice?: number;
     maxPrice?: number;
     isOtc?: boolean;
@@ -81,4 +63,17 @@ export interface Review {
     userId: string;
     medicineId: string;
     createdAt: string;
+}
+
+export interface CreateMedicinePayload {
+    name: string;
+    brandName: string;
+    genericName?: string;
+    manufacturer?: string;
+    description?: string;
+    categoryId: string;
+    price: number;
+    stockQuantity: number;
+    batchNumber: string;
+    expiryDate?: Date;
 }

@@ -61,7 +61,7 @@ export function AdminDashboardCharts() {
     if (isLoading) return <DashboardSkeleton />;
     if (!stats) return null;
 
-    /* ------------------ DATA TRANSFORM ------------------ */
+  
     const ordersData = Object.entries(stats.ordersOverTime).map(([date, orders]) => ({ date, orders }));
     const revenueData = Object.entries(stats.revenueOverTime).map(([date, revenue]) => ({ date, revenue }));
 

@@ -2,13 +2,13 @@
 'use client';
 
 import { useState } from "react";
-import { 
-    Table, 
-    TableBody, 
-    TableCell, 
-    TableHead, 
-    TableHeader, 
-    TableRow 
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
 } from "@/components/ui/table";
 import {
     Select,
@@ -33,14 +33,14 @@ const statusColors: Record<OrderStatus, string> = {
 export default function AdminOrdersTable({ initialOrders }: { initialOrders: AdminOrder[] }) {
     const [filter, setFilter] = useState<OrderStatus | "ALL">("ALL");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 30; 
+    const itemsPerPage = 30;
 
-  
+
     const filteredOrders = filter === "ALL"
         ? initialOrders
         : initialOrders.filter(order => order.overallStatus === filter);
 
-   
+
     const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -52,7 +52,7 @@ export default function AdminOrdersTable({ initialOrders }: { initialOrders: Adm
 
     return (
         <div className="space-y-4">
-          
+
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
                 <div className="flex items-center gap-2">
                     <div className="p-2 bg-green-50 rounded-lg">

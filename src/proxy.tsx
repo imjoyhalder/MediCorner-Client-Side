@@ -13,8 +13,8 @@ export const proxy = async (request: NextRequest) => {
     }
 
 
-    const role = data.user.role;
-    // console.log(data);
+    const role = data?.user?.role;
+    console.log(data);
     if (role === Roles.admin) {
         if (!pathname.startsWith("/dashboard/admin-dashboard")) {
             return NextResponse.redirect(

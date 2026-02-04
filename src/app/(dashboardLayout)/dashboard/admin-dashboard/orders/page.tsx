@@ -1,4 +1,4 @@
-import AdminOrdersTable from "@/components/modules/order/orderTable";
+import AdminOrdersTable from "@/components/modules/admin-dashboard/orderTable";
 import { getAllOrderForAdmin } from "@/services/order.service";
 
 
