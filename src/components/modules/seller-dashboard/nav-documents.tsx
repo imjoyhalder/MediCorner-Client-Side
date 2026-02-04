@@ -1,9 +1,11 @@
 "use client"
 
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   IconDots,
-  IconFolder,
-  IconShare3,
+  IconExternalLink,
+  IconPlus,
   IconTrash,
   type Icon,
 } from "@tabler/icons-react"
@@ -35,55 +37,60 @@ export function NavDocuments({
   }[]
 }) {
   const { isMobile } = useSidebar()
+  const pathname = usePathname()
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Documents</SidebarGroupLabel>
+      <SidebarGroupLabel>Management</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
+            <SidebarMenuButton
+              asChild
+              isActive={pathname === item.url}
+              className="data-[active=true]:bg-emerald-50 data-[active=true]:text-emerald-600"
+            >
+
+              <Link href={item.url}>
+                <item.icon size={18} />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
+
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction
                   showOnHover
                   className="data-[state=open]:bg-accent rounded-sm"
                 >
-                  <IconDots />
-                  <span className="sr-only">More</span>
+                  <IconDots size={16} />
+                  <span className="sr-only">Actions</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-24 rounded-lg"
+                className="w-40 rounded-lg"
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <IconFolder />
-                  <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <IconShare3 />
-                  <span>Share</span>
+                  <IconExternalLink size={16} className="mr-2" />
+                  <span>View Details</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
-                  <IconTrash />
-                  <span>Delete</span>
+                <DropdownMenuItem className="text-destructive focus:text-destructive">
+                  <IconTrash size={16} className="mr-2" />
+                  <span>Archive</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
+
         <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span>
+          <SidebarMenuButton className="text-emerald-600 hover:text-emerald-700 font-medium">
+            <IconPlus size={18} />
+            <span>Add New Medicine</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

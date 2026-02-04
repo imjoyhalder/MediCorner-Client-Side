@@ -10,7 +10,7 @@ interface SectionCardsProps {
 }
 
 export function SectionCards({ stats }: SectionCardsProps) {
-  // যদি ডাটা না থাকে
+
   if (!stats) return null;
 
   return (

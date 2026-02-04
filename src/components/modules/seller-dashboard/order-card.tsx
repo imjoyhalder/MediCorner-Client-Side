@@ -69,7 +69,6 @@ export function OrderCard({ order }: { order: SellerOrder }) {
                 <p className="text-muted-foreground">
                     <strong>Shipping:</strong> {order.shippingAddress}
                 </p>
-                {/* Ekhane Summary Sheet call kora hoyeche */}
                 <OrderSummarySheet order={order} />
             </div>
         </div>

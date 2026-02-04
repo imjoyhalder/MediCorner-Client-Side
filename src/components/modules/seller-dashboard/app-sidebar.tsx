@@ -1,25 +1,18 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
+import Image from "next/image"
 import {
-  IconCamera,
-  IconChartBar,
   IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
+  IconMedicineSyrup,
+  IconShoppingCart,
   IconSettings,
-  IconUsers,
+  IconHelp,
+  IconHome,
+  IconGraph,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/modules/seller-dashboard/nav-documents"
 import { NavMain } from "@/components/modules/seller-dashboard/nav-main"
 import { NavSecondary } from "@/components/modules/seller-dashboard/nav-secondary"
 import { NavUser } from "@/components/modules/seller-dashboard/nav-user"
@@ -29,148 +22,73 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Seller Name",
+    email: "seller@medicorner.com",
+    avatar: "/avatars/seller.jpg",
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
+      title: "Overview",
+      url: "/dashboard/seller-dashboard",
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      title: "Medicine Inventory",
+      url: "/dashboard/seller-dashboard/medicine",
+      icon: IconMedicineSyrup,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
+      title: "Order Requests",
+      url: "/dashboard/seller-dashboard/orders",
+      icon: IconShoppingCart,
     },
     {
-      title: "Projects",
+      title: "Sales Analytics",
       url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: IconGraph,
     },
   ],
   navSecondary: [
+    {
+      title: "Back to Home",
+      url: "/",
+      icon: IconHome,
+    },
     {
       title: "Settings",
       url: "#",
       icon: IconSettings,
     },
     {
-      title: "Get Help",
+      title: "Support",
       url: "#",
       icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
+            <Link href="/" className="flex items-center gap-2 p-2">
+              <Image src="/logo.png" alt="MediCorner" width={40} height={40} priority />
+              <div className="leading-tight group-data-[collapsible=icon]:hidden">
+                <p className="text-xl font-bold text-[#15a215]">MediCorner</p>
+              </div>
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
