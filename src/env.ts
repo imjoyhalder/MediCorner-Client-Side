@@ -9,9 +9,9 @@ export const env = createEnv({
         AUTH_URL: z.url()
     },
     client: {
-        // NEXT_PUBLIC_BACKEND_URL ekhane add kora hoyeche jate rewrites e kaj kore
         NEXT_PUBLIC_BACKEND_URL: z.url(),
-        NEXT_PUBLIC_TEST: z.string()
+        NEXT_PUBLIC_FRONTEND_URL: z.url(),
+
     },
     runtimeEnv: {
         BACKEND_URL: process.env.BACKEND_URL,
@@ -19,6 +19,6 @@ export const env = createEnv({
         API_URL: process.env.API_URL,
         AUTH_URL: process.env.AUTH_URL,
         NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
-        NEXT_PUBLIC_TEST: process.env.NEXT_PUBLIC_TEST
+        NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL
     },
 })

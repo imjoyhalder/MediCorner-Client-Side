@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { getSingleMedicine } from "@/services/medecine.service";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { toast } from "sonner";
 import { addToCart } from "@/actions/cart.action";
 import { useRouter } from "next/navigation";
 import { postReview } from "@/services/review.service";
+import { getSingleMedicine } from "@/services/single-medicine.service";
 
 const DEFAULT_IMAGE = "/Kerfin7-NEA-2139.jpg";
 
@@ -33,6 +33,7 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
         const fetchMedicine = async () => {
             const { id } = await params;
             const response = await getSingleMedicine(id);
+            console.log(response);
             if (response.success) {
                 setMedicine(response.data);
             }

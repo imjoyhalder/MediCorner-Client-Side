@@ -24,6 +24,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { env } from "@/env";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -33,7 +34,7 @@ const formSchema = z.object({
 const handleGoogleLogin = async () => {
   await authClient.signIn.social({
     provider: 'google',
-    callbackURL: window.location.origin
+    callbackURL: env.NEXT_PUBLIC_FRONTEND_URL
   })
 }
 
