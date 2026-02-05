@@ -1,7 +1,7 @@
+
 "use client"
 
 import * as React from "react"
-import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import {
   ColumnDef,
@@ -20,37 +20,37 @@ import { SellerMedicine } from "@/types/seller"
 import { deleteMedicine } from "@/services/seller.service"
 import { UpdateMedicineSheet } from "./update-medicine-form"
 
-
 interface DataTableProps {
   data: SellerMedicine[];
 }
 
 export function DataTable({ data }: DataTableProps) {
   const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  // 1. useTransition bad diye amra specific deleting ID track korbo
+  const [deletingId, setDeletingId] = React.useState<string | null>(null)
+
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 20,
   })
 
-
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this medicine?")) return
 
-    startTransition(async () => {
-      try {
-        console.log(id);
-        const response = await deleteMedicine(id)
-        if (response.success) {
-          toast.success("Medicine deleted successfully")
-          router.refresh()
-        } else {
-          toast.error(response.message || "Failed to delete")
-        }
-      } catch (error) {
-        toast.error("Something went wrong while deleting")
+    setDeletingId(id) // Specific ID set kora holo
+    try {
+      const response = await deleteMedicine(id)
+      if (response.success) {
+        toast.success("Medicine deleted successfully")
+        router.refresh()
+      } else {
+        toast.error(response.message || "Failed to delete")
       }
-    })
+    } catch (error) {
+      toast.error("Something went wrong while deleting")
+    } finally {
+      setDeletingId(null) // Kaaj shesh hole reset
+    }
   }
 
   // Column Definitions
@@ -81,26 +81,29 @@ export function DataTable({ data }: DataTableProps) {
     {
       id: "actions",
       header: "Actions",
-      cell: ({ row }) => (
-        
-        <div className="flex items-center gap-2">
+      cell: ({ row }) => {
+      
+        const isDeleting = deletingId === row.original.medicineId;
 
-          <UpdateMedicineSheet medicine={row.original} />
-          <Button
-            variant="outline"
-            size="icon"
-            className="size-8 text-destructive hover:bg-destructive/10"
-            disabled={isPending}
-            onClick={() => handleDelete(row.original.medicineId)}
-          >
-            {isPending ? (
-              <IconLoader2 className="size-4 animate-spin" />
-            ) : (
-              <IconTrash className="size-4" />
-            )}
-          </Button>
-        </div>
-      ),
+        return (
+          <div className="flex items-center gap-2">
+            <UpdateMedicineSheet medicine={row.original} />
+            <Button
+              variant="outline"
+              size="icon"
+              className="size-8 text-destructive hover:bg-destructive/10"
+              disabled={isDeleting}
+              onClick={() => handleDelete(row.original.medicineId)}
+            >
+              {isDeleting ? (
+                <IconLoader2 className="size-4 animate-spin" />
+              ) : (
+                <IconTrash className="size-4" />
+              )}
+            </Button>
+          </div>
+        )
+      },
     },
   ]
 
@@ -112,7 +115,6 @@ export function DataTable({ data }: DataTableProps) {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
-  console.log('medicine table', table);
 
   return (
     <div className="space-y-4">
@@ -133,7 +135,6 @@ export function DataTable({ data }: DataTableProps) {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} className="hover:bg-muted/30 transition-colors">
-                  {/* console.log(row); */}
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
