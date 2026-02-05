@@ -4,7 +4,7 @@ import { getAllUserForAdmin } from "@/services/admin.service";
 
 export default async function AdminUsersPage() {
     const res = await getAllUserForAdmin();
-    // console.log(res);
+
     if (res.error || !res.data) {
         return <div className="p-10 text-center text-red-500 font-bold">{res.error || "Failed to load users"}</div>;
     }

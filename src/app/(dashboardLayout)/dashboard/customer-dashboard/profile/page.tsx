@@ -13,9 +13,8 @@ export default async function ProfilePage() {
             headers: await headers()
         }
     });
-    console.log(session);
+
     const userData = await getSingleCustomer()
-    console.log(userData);
 
     if (!session?.data?.user) {
         redirect("/login");

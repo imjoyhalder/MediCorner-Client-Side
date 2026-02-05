@@ -28,33 +28,7 @@ export interface MedicineResponse {
 }
 
 export const MedicineServices = {
-    // getAllMedicine: async (filters: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
-    //     try {
-    //         const params = new URLSearchParams();
-
-    //         (Object.keys(filters) as Array<keyof MedicineFilters>).forEach((key) => {
-    //             const value = filters[key];
-    //             if (value !== undefined && value !== null && value !== "" && value !== "all") {
-    //                 params.append(key, value.toString());
-    //             }
-    //         });
-
-    //         const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, {
-    //             next: { revalidate: 10 }
-    //         });
-
-    //         const result: MedicineResponse = await res.json();
-
-    //         if (!res.ok) {
-    //             throw new Error(result.message || "Failed to fetch medicines");
-    //         }
-
-    //         return { data: result, error: null };
-    //     } catch (error) {
-    //         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
-    //         return { data: null, error: errorMessage };
-    //     }
-    // },
+    
 
     getAllMedicine: async (filters: MedicineFilters): Promise<{ data: MedicineResponse | null; error: string | null }> => {
         try {
@@ -66,7 +40,7 @@ export const MedicineServices = {
                 }
             });
 
-            const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, { next: { revalidate: 10 } });
+            const res = await fetch(`${env.BACKEND_URL}/medicine?${params.toString()}`, { next: { revalidate: 5} });
             const result: MedicineResponse = await res.json();
             return res.ok ? { data: result, error: null } : { data: null, error: result.message };
         } catch {
@@ -76,12 +50,11 @@ export const MedicineServices = {
     
     getCategories: async (): Promise<{ data: Category[] | null; error: string | null }> => {
         try {
-            const res = await fetch(`${env.BACKEND_URL}/categories`, { next: { revalidate: 60 } });
+            const res = await fetch(`${env.BACKEND_URL}/categories`, { next: { revalidate: 10 } });
             if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
             const data = await res.json();
             return data.success ? { data: data.data, error: null } : { data: null, error: data.message };
         } catch (error) {
-            console.error("Error fetching categories:", error);
             return { data: null, error: "Failed to fetch categories." };
         }
     },
@@ -94,7 +67,6 @@ export const MedicineServices = {
             const data = await res.json();
             return data.success ? { data: data.data, error: null } : { data: null, error: data.message };
         } catch (error) {
-            console.error("Error fetching manufacturers:", error);
             return { data: null, error: "Failed to fetch manufacturer data." };
         }
     }

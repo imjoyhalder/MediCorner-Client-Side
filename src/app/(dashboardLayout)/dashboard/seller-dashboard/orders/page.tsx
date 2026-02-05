@@ -3,7 +3,6 @@ import { SellerOrderList } from "@/components/modules/seller-dashboard/seller-or
 
 export default async function OrdersPage() {
     const response = await getSellerOrders();
-    console.log(response.data);
     const orders = response?.data || [];
 
     return (

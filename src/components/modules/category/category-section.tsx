@@ -28,7 +28,6 @@ const getDynamicIcon = (slug: string) => {
 
 export default async function CategorySection() {
     const res = await getAllCategories();
-    console.log(res);
     const categories = res.data || [];
 
     return (

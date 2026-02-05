@@ -32,7 +32,7 @@ export function AdminDashboardCharts() {
                 const res = await getStatisticsForAdminDashboard();
                 if (res.data) setStats(res.data);
             } catch (error) {
-                console.error("Failed to fetch admin stats:", error);
+                // console.error("Failed to fetch admin stats:", error);
             } finally {
                 setIsLoading(false);
             }

@@ -41,7 +41,7 @@ export async function postReview(payload: Review) {
         };
 
     } catch (error) {
-        console.error("POST_REVIEW_ERROR:", error);
+        // console.error("POST_REVIEW_ERROR:", error);
         return { success: false, message: "Something went wrong" };
     }
 }

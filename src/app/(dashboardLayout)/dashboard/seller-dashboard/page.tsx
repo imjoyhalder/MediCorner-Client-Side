@@ -1,29 +1,4 @@
 
-// import { ChartAreaInteractive } from "@/components/modules/seller-dashboard/chart-area-interactive"
-// import { SectionCards } from "@/components/modules/seller-dashboard/section-cards"
-// import { getSellerStatistics, getSellerStatsSummary } from "@/services/seller.service"
-
-// export default async function DashboardPage() {
-//   const [statsRes, chartRes] = await Promise.all([
-//     getSellerStatsSummary(),
-//     getSellerStatistics(),
-//   ]);
-//   console.log(chartRes.data);
-
-//   return (
-//     <>
-
-//       <SectionCards stats={statsRes.data} />
-
-
-//       <div className="px-4 lg:px-6">
-//         <ChartAreaInteractive statsData={chartRes.data} />
-//       </div>
-//     </>
-//   );
-// }
-
-
 import { ChartAreaInteractive } from "@/components/modules/seller-dashboard/chart-area-interactive"
 import { SectionCards } from "@/components/modules/seller-dashboard/section-cards"
 import { getSellerStatistics, getSellerStatsSummary } from "@/services/seller.service"
@@ -35,11 +10,8 @@ export default async function DashboardPage() {
     getSellerStatistics(),
   ]);
 
-  console.log(chartRes.data);
-  // Safety Fallbacks: Jodi data na thake tobe empty object/array pathano hocche
   const statsData = statsRes?.success ? statsRes.data : null;
 
-  // Chart data-r khetre ordersOverTime array kina seta check kora
   const chartData = chartRes?.success ? chartRes.data : {
     ordersOverTime: [],
     revenuePerMedicine: [],

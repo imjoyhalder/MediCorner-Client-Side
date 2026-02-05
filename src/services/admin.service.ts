@@ -39,7 +39,7 @@ export async function getAllUserForAdmin() {
         const data = await res.json();
 
         if (!res.ok) {
-            console.error("API Error Status:", res.status);
+            // console.error("API Error Status:", res.status);
         }
 
         if (!data?.result?.success) {
@@ -48,7 +48,7 @@ export async function getAllUserForAdmin() {
 
         return { data: data?.result?.data, error: null };
     } catch (error) {
-        console.error("Fetch Error:", error);
+        // console.error("Fetch Error:", error);
         return { data: null, error: "Network error occurred" };
     }
 }
@@ -67,7 +67,6 @@ export async function banUser(userId: string) {
         });
 
         const data = await res.json();
-        console.log(data);
 
         if (!data?.result.success) {
             return {
@@ -82,7 +81,6 @@ export async function banUser(userId: string) {
             data: data.result
         };
     } catch (error) {
-        console.error(error);
         return {
             success: false,
             message: "Internal server error"

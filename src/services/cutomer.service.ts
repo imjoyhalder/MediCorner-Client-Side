@@ -12,7 +12,7 @@ export const getMyOrders = async () => {
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 0, tags: ["orders"] },
+            next: { revalidate: 1, tags: ["orders"] },
         });
 
         return await res.json();

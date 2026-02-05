@@ -16,11 +16,10 @@ export async function getAllCategories() {
         if (!res.ok) {
             return { data: null, error: data.message || "Failed to fetch categories" };
         }
-        console.log(data?.data);
+
         return { data: data?.data, error: null };
 
     } catch (error) {
-        console.error("Fetch Error:", error);
         return { data: null, error: "Network error occurred" };
     }
 }

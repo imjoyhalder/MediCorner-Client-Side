@@ -33,7 +33,7 @@ export async function placeOrder(shippingAddress: string) {
         };
 
     } catch (error) {
-        console.error(error);
+
         return { success: false, message: "Something went wrong" };
     }
 }
@@ -48,7 +48,7 @@ export async function getAllOrderForAdmin() {
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 0 }, 
+            next: { revalidate: 1 }, 
         });
 
         const data = await res.json();
@@ -67,7 +67,6 @@ export async function getAllOrderForAdmin() {
         };
 
     } catch (error) {
-        console.error("Admin Orders Fetch Error:", error);
         return { 
             success: false, 
             message: "Something went wrong while fetching orders" 

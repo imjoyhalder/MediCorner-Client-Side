@@ -79,10 +79,7 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
                 }
             }
 
-
-
         } catch (error) {
-            console.error("Review Error:", error);
             toast.error("Something went wrong. Please try again.");
         } finally {
             setSubmittingReview(false);

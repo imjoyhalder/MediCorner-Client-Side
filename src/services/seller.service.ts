@@ -15,7 +15,7 @@ export async function getSellerStatistics() {
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 0 },
+            next: { revalidate: 1 },
         });
 
         const data = await res.json();
@@ -35,7 +35,7 @@ export async function getSellerStatsSummary() {
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 0 },
+            next: { revalidate: 1 },
         });
 
         const data = await res.json();
@@ -55,7 +55,7 @@ export async function getSellerMedicines(): Promise<ApiResponse<SellerMedicine[]
                 "Content-Type": "application/json",
                 Cookie: cookieStore.toString(),
             },
-            next: { revalidate: 0 },
+            next: { revalidate: 1 },
         });
 
         const data = await res.json();
@@ -66,7 +66,6 @@ export async function getSellerMedicines(): Promise<ApiResponse<SellerMedicine[]
 
         return data;
     } catch (error) {
-        console.error("Medicine Fetch Error:", error);
         return {
             success: false,
             statusCode: 500,
@@ -99,7 +98,6 @@ export async function updateMedicine(
 
         return result;
     } catch (error) {
-        console.error("Update Medicine Error:", error);
         return {
             success: false,
             statusCode: 500,
@@ -184,7 +182,6 @@ export async function updateOrderBatchStatus(
         });
 
         const result = await res.json();
-        console.log('update order status', result);
         if (!res.ok) {
             return {
                 success: false,

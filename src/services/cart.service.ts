@@ -48,7 +48,6 @@ export async function getCart() {
             },
         };
     } catch (error) {
-        console.error(error);
         return { success: false, message: "Something went wrong" };
     }
 }
@@ -90,7 +89,6 @@ export async function updateCartQuantity({
             data: data.data,
         };
     } catch (error) {
-        console.error(error);
         return { success: false, message: "Something went wrong" };
     }
 }
@@ -124,7 +122,6 @@ export async function removeFromCart(cartItemId: string) {
             data: { cartItemId },
         };
     } catch (error) {
-        console.error(error);
         return { success: false, message: "Something went wrong" };
     }
 }

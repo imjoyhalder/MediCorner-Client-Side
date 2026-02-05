@@ -1,20 +1,27 @@
+
+
 import { NextRequest, NextResponse } from "next/server";
 import { userService } from "./services/user.service";
 import { Roles } from "./constant/role";
 
 export const proxy = async (request: NextRequest) => {
     const pathname = request.nextUrl.pathname;
-
     const { data } = await userService.getSession();
 
+    if (data && (pathname === "/login" || pathname === "/register")) {
+        const role = data?.user?.role;
+        if (role === Roles.admin) return NextResponse.redirect(new URL("/", request.url));
+        if (role === Roles.seller) return NextResponse.redirect(new URL("/", request.url));
+        if (role === Roles.customer) return NextResponse.redirect(new URL("/", request.url));
+    }
 
     if (!data) {
+        if (pathname === "/login" || pathname === "/register") return NextResponse.next();
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
-
     const role = data?.user?.role;
-    console.log(data);
+
     if (role === Roles.admin) {
         if (!pathname.startsWith("/dashboard/admin-dashboard")) {
             return NextResponse.redirect(
@@ -23,7 +30,6 @@ export const proxy = async (request: NextRequest) => {
         }
         return NextResponse.next();
     }
-
 
     if (role === Roles.seller) {
         if (!pathname.startsWith("/dashboard/seller-dashboard")) {
@@ -45,8 +51,11 @@ export const proxy = async (request: NextRequest) => {
 
     return NextResponse.redirect(new URL("/login", request.url));
 };
+
 export const config = {
     matcher: [
-        "/dashboard/:path*", 
+        "/dashboard/:path*",
+        "/login",
+        "/register"
     ],
 };
