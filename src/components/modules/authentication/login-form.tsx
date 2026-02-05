@@ -104,12 +104,6 @@ export function LoginForm() {
             <form.Field name="password">
               {(field) => (
                 <Field className="space-y-1">
-                  <div className="flex justify-between items-center">
-                    <FieldLabel className="text-xs font-bold uppercase text-slate-500">Password</FieldLabel>
-                    <Link href="/forgot-password" className="text-[10px] text-[#22c55e] hover:underline font-bold uppercase">
-                      Forgot?
-                    </Link>
-                  </div>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input

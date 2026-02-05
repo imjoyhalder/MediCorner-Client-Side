@@ -75,7 +75,7 @@ export const MedicineServices = {
 export async function getSingleMedicine(id: string) {
     try {
 
-        const res = await fetch(`http://localhost:5000/api/v1/medicine/${id}`, {
+        const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/medicine/${id}`, {
             headers: {
                 'Application-Type': 'application/json'
             }
