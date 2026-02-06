@@ -12,7 +12,7 @@ export const authClient = createAuthClient({
     //     credentials: "include",
     // },
 
-    baseURL: process.env.BETTER_AUTH_URL || (typeof window !== "undefined" ? window.location.origin : "http://localhost:3000"),
+    baseURL: process.env.FRONTEND_URL|| (typeof window !== "undefined" ? window.location.origin : "http://localhost:3000"),
     fetchOptions: {
         credentials: "include",
     },
