@@ -33,7 +33,7 @@ export default async function ProfilePage() {
     return (
         <div className="max-w-4xl mx-auto py-6">
             <div className="mb-8 pl-4 md:pl-0">
-                <h1 className="text-2xl font-black text-slate-900 italic uppercase tracking-tight">
+                <h1 className="text-2xl font-black text-slate-900 ">
                     Account Settings
                 </h1>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">

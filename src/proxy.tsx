@@ -13,6 +13,10 @@ export async function proxy(request: NextRequest) {
     if (!user && pathname.startsWith("/dashboard")) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
+    // Skip middleware for verify-email route
+    // if (pathname.startsWith("/verify-email")) {
+    //     return NextResponse.next();
+    // }
 
     if (user && authRoutes.includes(pathname)) {
         if (user.role === Roles.admin) return NextResponse.redirect(new URL("/dashboard/admin-dashboard", request.url));
@@ -44,8 +48,8 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
     matcher: [
-        "/dashboard/:path*", 
-        "/login", 
+        "/dashboard/:path*",
+        "/login",
         "/register"
     ],
 };
