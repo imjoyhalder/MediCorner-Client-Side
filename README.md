@@ -1,4 +1,4 @@
-# 🏥 MediCorner 💊
+# 💊 MediCorner 
 **Your Trusted Online Medicine Shop**
 
 MediCorner is a full-stack e-commerce web application designed for purchasing **over-the-counter (OTC) medicines** online. The platform supports role-based access for **Customers**, **Sellers**, and **Admins**, each with dedicated features and dashboards.
