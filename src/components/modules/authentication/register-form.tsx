@@ -234,7 +234,7 @@ export function RegisterForm() {
             </Button>
 
             {/* GOOGLE - With Official Icon */}
-            <Button
+            {/* <Button
               onClick={handleGoogleLogin}
               type="button"
               variant="outline"
@@ -259,7 +259,7 @@ export function RegisterForm() {
                 />
               </svg>
               Continue with Google
-            </Button>
+            </Button> */}
           </FieldGroup>
         </form>
       </CardContent>
