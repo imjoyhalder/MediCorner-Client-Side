@@ -28,8 +28,8 @@ MediCorner provides a complete online medicine purchasing experience. Customers 
 | Seller | Pharmacy/vendor | Manage medicines, stock, orders |
 | Admin | Platform manager | Manage users, orders, categories |
 
-> Admin users are seeded directly into the database.
-
+> Admin users are seeded directly into the database
+> 
 ---
 
 ## 🚀 Features
