@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import NextTopLoader from "nextjs-toploader"; 
+import NextTopLoader from "nextjs-toploader";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,7 @@ export default function RootLayout({
         />
 
         {children}
+        <Analytics />
         <Toaster richColors />
       </body>
     </html>

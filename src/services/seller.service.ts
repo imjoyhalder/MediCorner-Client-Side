@@ -118,15 +118,27 @@ export async function deleteMedicine(medicineId: string): Promise<ApiResponse<nu
     return res.json();
 }
 
-export async function addMedicine(payload: CreateMedicinePayload): Promise<ApiResponse<CreateMedicinePayload>> {
+// export async function addMedicine(payload: CreateMedicinePayload): Promise<ApiResponse<CreateMedicinePayload>> {
+//     const cookieStore = await cookies();
+//     const res = await fetch(`${env.BACKEND_URL}/medicine`, {
+//         method: "POST",
+//         headers: {
+//             // "Content-Type": "application/json",
+//             Cookie: cookieStore.toString(),
+//         },
+//         body: JSON.stringify(payload),
+//     });
+//     return res.json();
+// }
+
+export async function addMedicine(payload: FormData): Promise<ApiResponse<null>> {
     const cookieStore = await cookies();
     const res = await fetch(`${env.BACKEND_URL}/medicine`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
             Cookie: cookieStore.toString(),
         },
-        body: JSON.stringify(payload),
+        body: payload, 
     });
     return res.json();
 }
