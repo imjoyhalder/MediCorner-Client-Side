@@ -290,7 +290,7 @@ const MedicineDetailsPage = ({ params }: { params: Promise<{ id: string }> }) =>
     const [loading, setLoading] = useState(true);
     const [cartLoading, setCartLoading] = useState(false);
 
-    console.log(medicine);
+
 
     // Review States
     const [rating, setRating] = useState(0);
