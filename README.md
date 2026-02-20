@@ -12,6 +12,17 @@ MediCorner is a full-stack e-commerce web application designed for purchasing **
 
 ---
 
+## Admin access 
+```
+admin@gmail.com
+12345678
+```
+## Seller access 
+```
+dev@gmail.com
+12345678
+```
+
 ## 📌 Project Overview
 
 MediCorner provides a complete online medicine purchasing experience. Customers can browse medicines, place orders, and track delivery status. Sellers manage medicine inventory and orders, while admins control users, medicines, and categories across the platform.
